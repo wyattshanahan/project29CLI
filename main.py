@@ -16,13 +16,14 @@ except:
 print("code executed and connected successfully")
 
 # Class definition for the user class. This class still needs to be written
-class user:
+class User:
     def __init__(self, username):
         self.username = username
 
 # class definitions and functions go above here
 
 # Main menu/ driver code (write a better comment than this for the final version)
+#each option below should launch the respective menu
 killprogram = False
 while (killprogram == False):
     print("\nMain Menu:")
@@ -40,8 +41,21 @@ while (killprogram == False):
         print("this will eventually show the user info menu")
     elif (selection == "4"):
         print("this will eventually show order history")
+    #fix formatting of exit
+    # Else if 5 is entered, then launch the exit menu
     elif (selection == "5"):
-        print("Exiting the program")
-        killprogram = True
+        while (1):
+            print("Do you wish to log out?")
+            print("1. Log out")
+            print("2. Go back")
+            selection = input("Input a number to select a menu option: ")
+            if (selection == "1"):
+                print(" Logging you out")
+                killprogram = True
+                break
+            elif (selection == "2"):
+                break
+            else:
+                print("Invalid option, please try again")
     else:
         print("Invalid option, please try again")
