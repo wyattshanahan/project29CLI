@@ -38,7 +38,23 @@ while (killprogram == False):
     elif (selection == "2"):
         print("this will eventually show the cart menu")
     elif (selection == "3"):
-        print("this will eventually show the user info menu")
+        while (1):
+            print("User Information: ")
+            print("1. View User Information")
+            print("2. Edit User Information")
+            print("3. Delete User Account")
+            print("4. Go Back")
+            selection = input("Input a number to select a menu option: ")
+            if (selection == "1"):
+                print("display User Information here with a function")
+            elif (selection == "2"):
+                print("edit user info menu, after displaying info")
+            elif (selection == "3"):
+                print("Delete account menu, used to confirm deletion then function to delete it")
+            elif (selection == "4"):
+                break
+            else:
+                print("Invalid option, please try again")
     elif (selection == "4"):
         print("this will eventually show order history")
     #fix formatting of exit
@@ -46,8 +62,8 @@ while (killprogram == False):
     elif (selection == "5"):
         while (1):
             print("Do you wish to log out?")
-            print("1. Log out")
-            print("2. Go back")
+            print("1. Log Out")
+            print("2. Go Back")
             selection = input("Input a number to select a menu option: ")
             if (selection == "1"):
                 print(" Logging you out")
