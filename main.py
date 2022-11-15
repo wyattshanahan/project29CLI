@@ -15,6 +15,8 @@ except:
     print("Failed to connect to the database")
     sys.exit()
 
+cursor = mydb.cursor()
+
 # class definitions and functions go above here
 def makeUser():
     fname = input("Enter your first name: ")
@@ -28,16 +30,17 @@ def makeUser():
     street = input("Enter your street address: ")
     city = input("Enter your city: ")
     state = input("Enter your state: ")
-    userZIP = input("Enter your zip/postal code: ")
+    userZip = input("Enter your zip/postal code: ")
     cardNum = input("Enter your credit card number: ")
     cardDate = input("Enter your card's expiration date: ")
     cardName = input("Enter the name on your card: ")
     cardCVV = input("Enter the security code on your card: ")
-    orderNum = 0
     userID = "some sql command to get number of rows in a table +1"
-    newUser = User(userID, fname, lname, street, city, state, userZIP, username, password, email, telephone, cardNum, cardCVV, cardName,cardDate, orderNum)
-
+    newUser = User(userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cardCVV, cardName , cardDate, orderNum = 0)
+    return(newUser)
     #function call to add to database
+
+#function to create a user object in python during session (iterates a tuple from the DB)
 # Main menu/ driver code (write a better comment than this for the final version)
 #each option below should launch the respective menu
 killprogram = False
@@ -51,6 +54,10 @@ while (killprogram == False):
     selection = input("Input a number to select a menu option: ")
     if (selection == "1"):
         print("this will eventually show inventory")
+        #currently in use for testing some user class stuff
+        #newUser = makeUser()
+        #type(newUser)
+        #newUser.makeDB(cursor, mydb)
     elif (selection == "2"):
         print("this will eventually show the cart menu")
     elif (selection == "3"):
