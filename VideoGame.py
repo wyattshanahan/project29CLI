@@ -12,7 +12,7 @@ class VideoGame:
               f"Developer: {self.developer}\n"
               f"Console: {self.console}\n"
               f"Game ID: {self.gameID}\n"
-              f"Number of copies in stock: {self.in_stock}")
+              f"Number of copies in stock: {self.in_stock}\n")
 
     def setStock(self, new_stock):
         self.in_stock = new_stock
