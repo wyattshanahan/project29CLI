@@ -132,7 +132,7 @@ while (killprogram == False):
         print("Invalid option, please try again")
 
 
-#TODO:
+#TO-DO:
 # login function
 # finish login menu
 # finish exit loop for login menu
