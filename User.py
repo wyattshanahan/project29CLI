@@ -59,6 +59,35 @@ class User:
     def getordernum(self):
         return self.orderNum
 
+    def setfname(self, new_fname):
+        self.fname = new_fname
+    def setlname(self, new_lname):
+        self.lname = new_lname
+    def setstreet(self, new_street):
+        self.street = new_street
+    def setcity(self, new_city):
+        self.city = new_city
+    def setstate(self, new_state):
+        self.state = new_state
+    def setzip(self, new_zip):
+        self.zip = new_zip
+    def setusername(self, new_name):
+        self.username = new_name
+    def setpassword(self, new_password):
+        self.password = new_password
+    def setemail(self, new_email):
+        self.email = new_email
+    def settelephone(self, new_phone):
+        self.telephone = new_phone
+    def setcardnum(self, new_cardnum):
+        self.cardNum = new_cardnum
+    def setcvv(self, new_cvv):
+        self.cvv = new_cvv
+    def setcardname(self, new_cardname):
+        self.cardName = new_cardname
+    def setcarddate(self, new_carddate):
+        self.cardDate = new_carddate
+
 #delete should probably be built as a class funtion as well
 #functions to grab from SQL to build user, setters including writing to the DB
 #setters for fname, lname, street, city, state, zip, uname, password, email, telephone, cardNum, cvv, cardName, cardDate
