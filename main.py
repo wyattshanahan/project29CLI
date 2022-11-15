@@ -39,6 +39,8 @@ def makeNewUser():
     newUser.makeDB(cursor, mydb)
     return(newUser)
 
+def makeCurrUser():
+    print("this will query with the username, seperate the SQL output, and create a user object with the information")
 def loginMenu():
     print("Welcome to Project29 CLI Game Store\n")
     print("Please select a menu option to continue: ")
@@ -120,7 +122,7 @@ while (killprogram == False):
             print("1. Log Out")
             print("2. Go Back")
             selection = input("Input a number to select a menu option: ")
-            if (selection == "1"):
+            if selection == "1":
                 print("\nYou will now be logged out")
                 killprogram = True
                 break
@@ -140,3 +142,4 @@ while (killprogram == False):
 # user class setters
 # user class grabber from DB (part of login)
 # SQL add support for when data item not found
+#functions to grab from SQL to build user, setters including writing to the DB
