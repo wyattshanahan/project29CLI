@@ -7,8 +7,12 @@ class VideoGame:
         self.gameID = gameID
         self.in_stock = in_stock
 
-    def viewInfo(gameID):
-        return 0
+    def viewInfo(self):
+        print(f"Title: {self.title}\n"
+              f"Developer: {self.developer}\n"
+              f"Console: {self.console}\n"
+              f"Game ID: {self.gameID}\n"
+              f"Number of copies in stock: {self.in_stock}")
 
-    def setStock(gameID, newStock):
-        return 0
+    def setStock(self, new_stock):
+        self.in_stock = new_stock
