@@ -1,3 +1,4 @@
+from main import checkPassword
 class User:
     def __init__(self, userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cvv, cardName,cardDate, orderNum):
         self.userID = userID
@@ -87,7 +88,26 @@ class User:
         self.cardName = new_cardname
     def setcarddate(self, new_carddate):
         self.cardDate = new_carddate
-
-#delete should probably be built as a class funtion as well
-#functions to grab from SQL to build user, setters including writing to the DB
+    def delete(self, cursor, mydb):
+        userInput = input("To continue, please enter your password: ")
+        continuer = checkPassword(userInput, self.userID)
+        if (continuer):
+            while(1):
+                userInput = input("Are you sure you want to delete your account: ")
+                if (userInput == "y" or "Y"):
+                    print("Deleting your account from the system.")
+                    cursor = cursor
+                    query = "DELETE FROM Users WHERE userID=?"
+                    cursor.execute(query, self.userID)
+                    mydb.commit()
+                    print(cursor.rowcount, "Account deleted successfully.")
+                    print()
+                    break
+                elif (userInput == "n" or "N"):
+                    print("Aborting deletion.")
+                    break;
+                else:
+                    print("Invalid input, please try again")
+        else:
+            print("Incorrect password. Please try again")
 #setters for fname, lname, street, city, state, zip, uname, password, email, telephone, cardNum, cvv, cardName, cardDate

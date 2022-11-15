@@ -1,4 +1,3 @@
-
 import mysql.connector
 import sys
 from User import User
@@ -40,35 +39,34 @@ def makeNewUser():
     newUser.makeDB(cursor, mydb)
     return(newUser)
 
+def makeCurrUser():
+    print("this will query with the username, seperate the SQL output, and create a user object with the information")
 def loginMenu():
     print("Welcome to Project29 CLI Game Store\n")
-    userInput = ''
-    while userInput not in ['1', '2', '3']:
-        print("Please select a menu option to continue: ")
-        print("1. Login")
-        print("2. Create a New Account")
-        print("3. Exit")
-        userInput = input("Please enter an integer menu option: ")
-        if(userInput == "1"):
-            print("run the login function")
-            #currUser = login()
-            #return currUser
-        elif(userInput == "2"):
-            currUser = makeNewUser()
-            return currUser
-        elif(userInput == "3"):
-            while userInput not in ['y', 'n']:
-                userInput = input("Do you wish to exit? (y/n)")
-                if (userInput == "y" or "Y"):
-                    print("exit")
-                elif(userInput == "n" or "N"):
-                    print("dont exit")
-                else:
-                    print("Invalid input, please try again.\n")
+    print("Please select a menu option to continue: ")
+    print("1. Login")
+    print("2. Create a New Account")
+    print("3. Exit")
+    userInput = input("Please enter an integer menu option: ")
+    if(userInput == "1"):
+        print("run the login function")
+        #currUser = login()
+        #return currUser
+    elif(userInput == "2"):
+        currUser = makeNewUser()
+        return currUser
+    elif(userInput == "3"):
+        userInput = input("Do you wish to exit? (y/n)")
+        if (userInput == "y" or "Y"):
+            print("exit")
+        elif(userInput == "n" or "N"):
+            print("dont exit")
         else:
-            print("Invalid input, please try again.\n")
+            print("Invalid input, please try again.")
+    else:
+        print("Invalid input, please try again.")
 
-# function for login process
+#function for login process
 def login():
     print("Login to an existing account")
     username = input("Please enter your username: ")
@@ -85,57 +83,55 @@ def checkPassword(userInput, userID):
 #each option below should launch the respective menu
 killprogram = False
 while (killprogram == False):
-    selection = ""
-    while selection not in ['1', '2', '3', '4', '5']:
-        print("\nMain Menu:")
-        print("1. Shop Inventory")
-        print("2. View and Edit Cart")
-        print("3. View and Edit User Information")
-        print("4. View Order History")
-        print("5. Log Out")
-        selection = input("Input a number to select a menu option: ")
-        if (selection == "1"):
-            print("this will eventually show inventory")
-        elif (selection == "2"):
-            print("this will eventually show the cart menu")
-        elif (selection == "3"):
-            while selection not in ['1', '2', '3', '4']:
-                print("User Information: ")
-                print("1. View User Information")
-                print("2. Edit User Information")
-                print("3. Delete User Account")
-                print("4. Go Back")
-                selection = input("Input a number to select a menu option: ")
-                if (selection == "1"):
-                    print("display User Information here with a function")
-                elif (selection == "2"):
-                    print("edit user info menu, after displaying info")
-                elif (selection == "3"):
-                    print("Delete account menu, used to confirm deletion then function to delete it")
-                elif (selection == "4"):
-                    break
-                else:
-                    print("Invalid option, please try again\n")
-        elif (selection == "4"):
-            print("this will eventually show order history")
-        # fix formatting of exit
-        # Else if 5 is entered, then launch the exit menu
-        elif (selection == "5"):
-            while (1):
-                print("\nDo you wish to log out?")
-                print("1. Log Out")
-                print("2. Go Back")
-                selection = input("Input a number to select a menu option: ")
-                if (selection == "1"):
-                    print("\nYou will now be logged out")
-                    killprogram = True
-                    break
-                elif (selection == "2"):
-                    break
-                else:
-                    print("Invalid option, please try again")
-        else:
-            print("Invalid option, please try again")
+    print("\nMain Menu:")
+    print("1. Shop Inventory")
+    print("2. View and Edit Cart")
+    print("3. View and Edit User Information")
+    print("4. View Order History")
+    print("5. Log Out")
+    selection = input("Input a number to select a menu option: ")
+    if (selection == "1"):
+        print("this will eventually show inventory")
+    elif (selection == "2"):
+        print("this will eventually show the cart menu")
+    elif (selection == "3"):
+        while (1):
+            print("User Information: ")
+            print("1. View User Information")
+            print("2. Edit User Information")
+            print("3. Delete User Account")
+            print("4. Go Back")
+            selection = input("Input a number to select a menu option: ")
+            if (selection == "1"):
+                print("display User Information here with a function")
+            elif (selection == "2"):
+                print("edit user info menu, after displaying info")
+            elif (selection == "3"):
+                print("Delete account menu, used to confirm deletion then function to delete it")
+            elif (selection == "4"):
+                break
+            else:
+                print("Invalid option, please try again")
+    elif (selection == "4"):
+        print("this will eventually show order history")
+    # fix formatting of exit
+    # Else if 5 is entered, then launch the exit menu
+    elif (selection == "5"):
+        while (1):
+            print("\nDo you wish to log out?")
+            print("1. Log Out")
+            print("2. Go Back")
+            selection = input("Input a number to select a menu option: ")
+            if selection == "1":
+                print("\nYou will now be logged out")
+                killprogram = True
+                break
+            elif (selection == "2"):
+                break
+            else:
+                print("Invalid option, please try again")
+    else:
+        print("Invalid option, please try again")
 
 
 #TO-DO:
@@ -146,3 +142,4 @@ while (killprogram == False):
 # user class setters
 # user class grabber from DB (part of login)
 # SQL add support for when data item not found
+#functions to grab from SQL to build user, setters including writing to the DB
