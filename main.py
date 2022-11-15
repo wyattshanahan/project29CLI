@@ -39,6 +39,14 @@ def makeUser():
     newUser = User(userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cardCVV, cardName , cardDate, orderNum = 0)
     return(newUser)
     #function call to add to database
+#function for login process
+#function for initial menu
+#function for checking password
+
+def checkPassword(userInput, userID):
+    print("this will check userInput against the password in the DB")
+    cursor.execute("SELECT password FROM Users WHERE symbol=?", userID)
+    correctPassword = cursor.fetchall()
 
 #function to create a user object in python during session (iterates a tuple from the DB)
 # Main menu/ driver code (write a better comment than this for the final version)
