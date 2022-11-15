@@ -17,16 +17,15 @@ except:
 
 cursor = mydb.cursor()
 
-# class definitions and functions go above here
-def makeUser():
+def makeNewUser():
     fname = input("Enter your first name: ")
     lname = input("Enter your last name: ")
+    #SQL to check for existing already
     email = input("Enter your email: ")
     telephone = input("Enter your telephone number: ")
     #SQL to check for it already existing
     username = input("Enter your desired username: ")
     password = input("Enter your desired password: ")
-    #SQL to check for it already existing
     street = input("Enter your street address: ")
     city = input("Enter your city: ")
     state = input("Enter your state: ")
@@ -37,16 +36,45 @@ def makeUser():
     cardCVV = input("Enter the security code on your card: ")
     userID = "some sql command to get number of rows in a table +1"
     newUser = User(userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cardCVV, cardName , cardDate, orderNum = 0)
+    newUser.makeDB(cursor, mydb)
     return(newUser)
-    #function call to add to database
-#function for login process
-#function for initial menu
-#function for checking password
 
+def loginMenu():
+    print("Welcome to Project29 CLI Game Store\n")
+    print("Please select a menu option to continue: ")
+    print("1. Login")
+    print("2. Create a New Account")
+    print("3. Exit")
+    userInput = input("Please enter an integer menu option: ")
+    if(userInput == "1"):
+        print("run the login function")
+        #currUser = login()
+        #return currUser
+    elif(userInput == "2"):
+        currUser = makeNewUser()
+        return currUser
+    elif(userInput == "3"):
+        userInput = input("Do you wish to exit? (y/n)")
+        if (userInput == "y" or "Y"):
+            print("exit")
+        elif(userInput == "n" or "N"):
+            print("dont exit")
+        else:
+            print("Invalid input, please try again.")
+    else:
+        print("Invalid input, please try again.")
+
+#function for login process
+def login():
+    print("Login to an existing account")
+    username = input("Please enter your username: ")
+    cursor.execute("SELECT userID FROM Users WHERE username=?", username)
+    userID = cursor.fetchall()
 def checkPassword(userInput, userID):
     print("this will check userInput against the password in the DB")
-    cursor.execute("SELECT password FROM Users WHERE symbol=?", userID)
+    cursor.execute("SELECT password FROM Users WHERE userID=?", userID)
     correctPassword = cursor.fetchall()
+    return (userInput == correctPassword)
 
 #function to create a user object in python during session (iterates a tuple from the DB)
 # Main menu/ driver code (write a better comment than this for the final version)
@@ -62,10 +90,6 @@ while (killprogram == False):
     selection = input("Input a number to select a menu option: ")
     if (selection == "1"):
         print("this will eventually show inventory")
-        #currently in use for testing some user class stuff
-        #newUser = makeUser()
-        #type(newUser)
-        #newUser.makeDB(cursor, mydb)
     elif (selection == "2"):
         print("this will eventually show the cart menu")
     elif (selection == "3"):
@@ -106,3 +130,13 @@ while (killprogram == False):
                 print("Invalid option, please try again")
     else:
         print("Invalid option, please try again")
+
+
+#TODO:
+# login function
+# finish login menu
+# finish exit loop for login menu
+# main menu
+# user class setters
+# user class grabber from DB (part of login)
+# SQL add support for when data item not found
