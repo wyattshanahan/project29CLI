@@ -1,6 +1,6 @@
-from main import checkPassword
+# User class file containing the constructor, getters, setters, deletion, makeDB, and password checker functions.
 class User:
-    def __init__(self, userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cvv, cardName,cardDate, orderNum):
+    def __init__(self, userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cvv, cardName, cardDate, orderNum):
         self.userID = userID
         self.fname = fname
         self.lname = lname
@@ -60,37 +60,99 @@ class User:
     def getordernum(self):
         return self.orderNum
 
-    def setfname(self, new_fname):
+    def setfname(self, new_fname, cursor, mydb):
         self.fname = new_fname
-    def setlname(self, new_lname):
+        cursor = cursor
+        query = ("UPDATE Users SET fname=? WHERE userID =?")
+        cursor.execute(query, new_fname, self.userID)
+        mydb.commit()
+    def setlname(self, new_lname, cursor, mydb):
         self.lname = new_lname
-    def setstreet(self, new_street):
+        cursor = cursor
+        query = ("UPDATE Users SET lname=? WHERE userID =?")
+        cursor.execute(query, new_lname, self.userID)
+        mydb.commit()
+    def setstreet(self, new_street, cursor, mydb):
         self.street = new_street
-    def setcity(self, new_city):
+        cursor = cursor
+        query = ("UPDATE Users SET street=? WHERE userID =?")
+        cursor.execute(query, new_street, self.userID)
+        mydb.commit()
+    def setcity(self, new_city, cursor, mydb):
         self.city = new_city
-    def setstate(self, new_state):
+        cursor = cursor
+        query = ("UPDATE Users SET city=? WHERE userID =?")
+        cursor.execute(query, new_city, self.userID)
+        mydb.commit()
+    def setstate(self, new_state, cursor, mydb):
         self.state = new_state
-    def setzip(self, new_zip):
+        cursor = cursor
+        query = ("UPDATE Users SET state=? WHERE userID =?")
+        cursor.execute(query, new_state, self.userID)
+        mydb.commit()
+    def setzip(self, new_zip, cursor, mydb):
         self.zip = new_zip
-    def setusername(self, new_name):
+        cursor = cursor
+        query = ("UPDATE Users SET userZip=? WHERE userID =?")
+        cursor.execute(query, new_zip, self.userID)
+        mydb.commit()
+    def setusername(self, new_name, cursor, mydb):
         self.username = new_name
-    def setpassword(self, new_password):
+        cursor = cursor
+        query = ("UPDATE Users SET username=? WHERE userID =?")
+        cursor.execute(query, new_name, self.userID)
+        mydb.commit()
+    def setpassword(self, new_password, cursor, mydb):
+        good_password = False
+        while(good_password != True):
+            userInput = input("Please enter your password to continue. To exit, please type 'abort'.")
+            if (userInput == "abort"):
+                return 1
+            good_password = self.checkPassword(self,userInput,self.userID)
         self.password = new_password
-    def setemail(self, new_email):
+        cursor = cursor
+        query = ("UPDATE Users SET password=? WHERE userID =?")
+        cursor.execute(query, new_password, self.userID)
+        mydb.commit()
+    def setemail(self, new_email, cursor, mydb):
         self.email = new_email
-    def settelephone(self, new_phone):
+        cursor = cursor
+        query = ("UPDATE Users SET email=? WHERE userID =?")
+        cursor.execute(query, new_email, self.userID)
+        mydb.commit()
+    def settelephone(self, new_phone, cursor, mydb):
         self.telephone = new_phone
-    def setcardnum(self, new_cardnum):
+        cursor = cursor
+        query = ("UPDATE Users SET telephone=? WHERE userID =?")
+        cursor.execute(query, new_phone, self.userID)
+        mydb.commit()
+    def setcardnum(self, new_cardnum, cursor, mydb):
         self.cardNum = new_cardnum
-    def setcvv(self, new_cvv):
+        cursor = cursor
+        query = ("UPDATE Users SET cardNum=? WHERE userID =?")
+        cursor.execute(query, new_cardnum, self.userID)
+        mydb.commit()
+    def setcvv(self, new_cvv, cursor, mydb):
         self.cvv = new_cvv
-    def setcardname(self, new_cardname):
+        cursor = cursor
+        query = ("UPDATE Users SET cvv=? WHERE userID =?")
+        cursor.execute(query, new_cvv, self.userID)
+        mydb.commit()
+    def setcardname(self, new_cardname, cursor, mydb):
         self.cardName = new_cardname
-    def setcarddate(self, new_carddate):
+        cursor = cursor
+        query = ("UPDATE Users SET cardName=? WHERE userID =?")
+        cursor.execute(query, new_cardname, self.userID)
+        mydb.commit()
+    def setcarddate(self, new_carddate, cursor, mydb):
         self.cardDate = new_carddate
+        cursor = cursor
+        query = ("UPDATE Users SET cardDate=? WHERE userID =?")
+        cursor.execute(query, new_carddate, self.userID)
+        mydb.commit()
     def delete(self, cursor, mydb):
         userInput = input("To continue, please enter your password: ")
-        continuer = checkPassword(userInput, self.userID)
+        continuer = self.checkPassword(userInput, self.userID)
         if (continuer):
             while(1):
                 userInput = input("Are you sure you want to delete your account: ")
@@ -105,9 +167,13 @@ class User:
                     break
                 elif (userInput == "n" or "N"):
                     print("Aborting deletion.")
-                    break;
+                    break
                 else:
                     print("Invalid input, please try again")
         else:
             print("Incorrect password. Please try again")
-#setters for fname, lname, street, city, state, zip, uname, password, email, telephone, cardNum, cvv, cardName, cardDate
+        def checkPassword(self, userInput, userID):
+            print("this will check userInput against the password in the DB")
+            cursor.execute("SELECT password FROM Users WHERE userID=?", userID)
+            correctPassword = cursor.fetchall()
+            return (userInput == correctPassword)
