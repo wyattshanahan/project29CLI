@@ -40,7 +40,8 @@ def makeNewUser():
     return(newUser)
 
 def makeCurrUser():
-    print("this will query with the username, seperate the SQL output, and create a user object with the information")
+    print("this will query with the username, separate the SQL output, and create a user object with the information")
+    # class needs a function to construct a user based on data received from an SQL query. Utilize the user class constructor for doing this
 def loginMenu():
     print("Welcome to Project29 CLI Game Store\n")
     print("Please select a menu option to continue: ")
@@ -72,11 +73,7 @@ def login():
     username = input("Please enter your username: ")
     cursor.execute("SELECT userID FROM Users WHERE username=?", username)
     userID = cursor.fetchall()
-def checkPassword(userInput, userID):
-    print("this will check userInput against the password in the DB")
-    cursor.execute("SELECT password FROM Users WHERE userID=?", userID)
-    correctPassword = cursor.fetchall()
-    return (userInput == correctPassword)
+
 
 #function to create a user object in python during session (iterates a tuple from the DB)
 # Main menu/ driver code (write a better comment than this for the final version)
@@ -92,6 +89,7 @@ while (killprogram == False):
     selection = input("Input a number to select a menu option: ")
     if (selection == "1"):
         print("this will eventually show inventory")
+        makeNewUser()
     elif (selection == "2"):
         print("this will eventually show the cart menu")
     elif (selection == "3"):
