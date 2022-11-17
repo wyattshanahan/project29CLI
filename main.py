@@ -44,28 +44,30 @@ def makeCurrUser():
     # class needs a function to construct a user based on data received from an SQL query. Utilize the user class constructor for doing this
 def loginMenu():
     print("Welcome to Project29 CLI Game Store\n")
-    print("Please select a menu option to continue: ")
-    print("1. Login")
-    print("2. Create a New Account")
-    print("3. Exit")
-    userInput = input("Please enter an integer menu option: ")
-    if(userInput == "1"):
-        print("run the login function")
-        #currUser = login()
-        #return currUser
-    elif(userInput == "2"):
-        currUser = makeNewUser()
-        return currUser
-    elif(userInput == "3"):
-        userInput = input("Do you wish to exit? (y/n)")
-        if (userInput == "y" or "Y"):
-            print("exit")
-        elif(userInput == "n" or "N"):
-            print("dont exit")
+    while userInput not in ['1', '2', '3']:
+        print("Please select a menu option to continue: ")
+        print("1. Login")
+        print("2. Create a New Account")
+        print("3. Exit")
+        userInput = input("Please enter an integer menu option: ")
+        if(userInput == "1"):
+            print("run the login function")
+            #currUser = login()
+            #return currUser
+        elif(userInput == "2"):
+            currUser = makeNewUser()
+            return currUser
+        elif(userInput == "3"):
+            userInput = input("Do you wish to exit? (y/n)")
+            while userInput not in ['y', 'n']:
+                if (userInput == "y" or "Y"):
+                    print("exit")
+                elif(userInput == "n" or "N"):
+                    print("dont exit")
+                else:
+                    print("Invalid input, please try again.\n")
         else:
-            print("Invalid input, please try again.")
-    else:
-        print("Invalid input, please try again.")
+            print("Invalid input, please try again.\n")
 
 #function for login process
 def login():
