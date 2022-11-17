@@ -63,44 +63,44 @@ class User:
     def setfname(self, new_fname, cursor, mydb):
         self.fname = new_fname
         cursor = cursor
-        query = ("UPDATE Users SET fname=? WHERE userID =?")
-        cursor.execute(query, new_fname, self.userID)
+        query = ("UPDATE Users SET fname= %s WHERE userID = %s")
+        cursor.execute(query, (new_fname, self.userID,))
         mydb.commit()
     def setlname(self, new_lname, cursor, mydb):
         self.lname = new_lname
         cursor = cursor
-        query = ("UPDATE Users SET lname=? WHERE userID =?")
-        cursor.execute(query, new_lname, self.userID)
+        query = ("UPDATE Users SET lname=%s WHERE userID =%s")
+        cursor.execute(query, (new_lname, self.userID,))
         mydb.commit()
     def setstreet(self, new_street, cursor, mydb):
         self.street = new_street
         cursor = cursor
-        query = ("UPDATE Users SET street=? WHERE userID =?")
-        cursor.execute(query, new_street, self.userID)
+        query = ("UPDATE Users SET street=%s WHERE userID =%s")
+        cursor.execute(query, (new_street, self.userID,))
         mydb.commit()
     def setcity(self, new_city, cursor, mydb):
         self.city = new_city
         cursor = cursor
-        query = ("UPDATE Users SET city=? WHERE userID =?")
-        cursor.execute(query, new_city, self.userID)
+        query = ("UPDATE Users SET city=%s WHERE userID =%s")
+        cursor.execute(query, (new_city, self.userID,))
         mydb.commit()
     def setstate(self, new_state, cursor, mydb):
         self.state = new_state
         cursor = cursor
-        query = ("UPDATE Users SET state=? WHERE userID =?")
-        cursor.execute(query, new_state, self.userID)
+        query = ("UPDATE Users SET state=%s WHERE userID =%s")
+        cursor.execute(query, (new_state, self.userID,))
         mydb.commit()
     def setzip(self, new_zip, cursor, mydb):
         self.zip = new_zip
         cursor = cursor
-        query = ("UPDATE Users SET userZip=? WHERE userID =?")
-        cursor.execute(query, new_zip, self.userID)
+        query = ("UPDATE Users SET userZip=%s WHERE userID =%s")
+        cursor.execute(query, (new_zip, self.userID,))
         mydb.commit()
     def setusername(self, new_name, cursor, mydb):
         self.username = new_name
         cursor = cursor
-        query = ("UPDATE Users SET username=? WHERE userID =?")
-        cursor.execute(query, new_name, self.userID)
+        query = ("UPDATE Users SET username=%s WHERE userID =%s")
+        cursor.execute(query, (new_name, self.userID,))
         mydb.commit()
     def setpassword(self, new_password, cursor, mydb):
         good_password = False
@@ -111,44 +111,44 @@ class User:
             good_password = self.checkPassword(self,userInput,self.userID)
         self.password = new_password
         cursor = cursor
-        query = ("UPDATE Users SET password=? WHERE userID =?")
-        cursor.execute(query, new_password, self.userID)
+        query = ("UPDATE Users SET password=%s WHERE userID =%s")
+        cursor.execute(query, (new_password, self.userID,))
         mydb.commit()
     def setemail(self, new_email, cursor, mydb):
         self.email = new_email
         cursor = cursor
-        query = ("UPDATE Users SET email=? WHERE userID =?")
-        cursor.execute(query, new_email, self.userID)
+        query = ("UPDATE Users SET email=%s WHERE userID =%s")
+        cursor.execute(query, (new_email, self.userID,))
         mydb.commit()
     def settelephone(self, new_phone, cursor, mydb):
         self.telephone = new_phone
         cursor = cursor
-        query = ("UPDATE Users SET telephone=? WHERE userID =?")
-        cursor.execute(query, new_phone, self.userID)
+        query = ("UPDATE Users SET telephone=%s WHERE userID =%s")
+        cursor.execute(query, (new_phone, self.userID,))
         mydb.commit()
     def setcardnum(self, new_cardnum, cursor, mydb):
         self.cardNum = new_cardnum
         cursor = cursor
-        query = ("UPDATE Users SET cardNum=? WHERE userID =?")
-        cursor.execute(query, new_cardnum, self.userID)
+        query = ("UPDATE Users SET cardNum=%s WHERE userID =%s")
+        cursor.execute(query, (new_cardnum, self.userID,))
         mydb.commit()
     def setcvv(self, new_cvv, cursor, mydb):
         self.cvv = new_cvv
         cursor = cursor
-        query = ("UPDATE Users SET cvv=? WHERE userID =?")
-        cursor.execute(query, new_cvv, self.userID)
+        query = ("UPDATE Users SET cvv=%s WHERE userID =%s")
+        cursor.execute(query, (new_cvv, self.userID,))
         mydb.commit()
     def setcardname(self, new_cardname, cursor, mydb):
         self.cardName = new_cardname
         cursor = cursor
-        query = ("UPDATE Users SET cardName=? WHERE userID =?")
-        cursor.execute(query, new_cardname, self.userID)
+        query = ("UPDATE Users SET cardName=%s WHERE userID =%s")
+        cursor.execute(query, (new_cardname, self.userID,))
         mydb.commit()
     def setcarddate(self, new_carddate, cursor, mydb):
         self.cardDate = new_carddate
         cursor = cursor
-        query = ("UPDATE Users SET cardDate=? WHERE userID =?")
-        cursor.execute(query, new_carddate, self.userID)
+        query = ("UPDATE Users SET cardDate=%s WHERE userID =%s")
+        cursor.execute(query, (new_carddate, self.userID,))
         mydb.commit()
     def delete(self, cursor, mydb):
         userInput = input("To continue, please enter your password: ")
@@ -173,7 +173,15 @@ class User:
         else:
             print("Incorrect password. Please try again")
         def checkPassword(self, userInput, userID):
-            print("this will check userInput against the password in the DB")
-            cursor.execute("SELECT password FROM Users WHERE userID=?", userID)
-            correctPassword = cursor.fetchall()
-            return (userInput == correctPassword)
+            while (1):
+                userInput = input("Enter your password. Type 'abort' to exit this process. ")
+                query = ("SELECT password FROM Users WHERE userID = %s")
+                cursor.execute(query, (userID,))
+                correctPassword = cursor.fetchall()
+                if(correctPassword[0] == userInput):
+                    break
+                elif(userInput == 'abort'):
+                    return 1
+                else:
+                    print("Invalid password. Please try again.")
+            return (userInput == correctPassword[1])
