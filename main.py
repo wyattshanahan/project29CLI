@@ -20,11 +20,25 @@ cursor = mydb.cursor()
 def makeNewUser():
     fname = input("Enter your first name: ")
     lname = input("Enter your last name: ")
-    #SQL to check for existing already
-    email = input("Enter your email: ")
+    while (1):
+        email = input("Enter your email address: ")
+        query = ("SELECT email FROM Users WHERE email = %s")
+        cursor.execute(query, (email,))
+        status = cursor.fetchall()
+        if status != []:
+            print("Email address is already registered. Please try again")
+        else:
+            break
     telephone = input("Enter your telephone number: ")
-    #SQL to check for it already existing
-    username = input("Enter your desired username: ")
+    while(1):
+        username = input("Enter your desired username: ")
+        query = ("SELECT username FROM Users WHERE username = %s")
+        cursor.execute(query,(username,))
+        status = cursor.fetchall()
+        if status != []:
+            print("Username already exists. Please try again")
+        else:
+            break
     password = input("Enter your desired password: ")
     street = input("Enter your street address: ")
     city = input("Enter your city: ")
