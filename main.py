@@ -68,8 +68,8 @@ def makeCurrUser(username):
     # class needs a function to construct a user based on data received from an SQL query. Utilize the user class constructor for doing this
 def loginMenu():
     print("Welcome to Project29 CLI Game Store\n")
+    print("Please select a menu option to continue: ")
     while userInput not in ['1', '2', '3']:
-        print("Please select a menu option to continue: ")
         print("1. Login")
         print("2. Create a New Account")
         print("3. Exit")
