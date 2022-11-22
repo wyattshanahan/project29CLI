@@ -48,12 +48,22 @@ def makeNewUser():
     cardDate = input("Enter your card's expiration date: ")
     cardName = input("Enter the name on your card: ")
     cardCVV = input("Enter the security code on your card: ")
-    userID = "some sql command to get number of rows in a table +1"
+    query = ("SELECT COUNT(1) FROM Users")
+    cursor.execute(query,)
+    userID = cursor.fetchall()
+    userID = userID[0]
+    userID = userID[0]
+    int(userID)
+    userID +=1
     newUser = User(userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cardCVV, cardName , cardDate, orderNum = 0)
     newUser.makeDB(cursor, mydb)
     return(newUser)
 
-def makeCurrUser():
+def makeCurrUser(username):
+    query = ("SELECT * FROM Users WHERE username = %s")
+    cursor.execute(query,(username,))
+    result = cursor.fetchall()
+    result = result[1]
     print("this will query with the username, separate the SQL output, and create a user object with the information")
     # class needs a function to construct a user based on data received from an SQL query. Utilize the user class constructor for doing this
 def loginMenu():
@@ -87,8 +97,13 @@ def loginMenu():
 def login():
     print("Login to an existing account")
     username = input("Please enter your username: ")
-    cursor.execute("SELECT userID FROM Users WHERE username=?", username)
-    userID = cursor.fetchall()
+    query = ("SELECT * FROM Users WHERE username=%s")
+    cursor.execute(query, (username,))
+    resultantUser = cursor.fetchall()
+    print(resultantUser)
+    #convert into a user, then return it
+    #resultant returns [(0, 'Neil', 'Yakapov', '237 91st Street', 'Edmonton', 'AB', 'T6E 2Z7', 'nyakapov', 'pAsSwOrD!', 'nyakapov@nhl.com', '627-232-1242', '1212646423234232', 134, 'Neil Yakapov', '12/2022', 0)]
+    #iterate the above, and put it into a makecurruser function, returning the user at the end
 
 
 #function to create a user object in python during session (iterates a tuple from the DB)
@@ -97,6 +112,7 @@ def login():
 killprogram = False
 while (killprogram == False):
     print("\nMain Menu:")
+    selection = ""
     while selection not in ['1', '2', '3', '4', '5']:
         print("1. Shop Inventory")
         print("2. View and Edit Cart")
@@ -106,6 +122,7 @@ while (killprogram == False):
         selection = input("Input a number to select a menu option: ")
         if (selection == "1"):
             print("this will eventually show inventory")
+            #login()
             makeNewUser()
         elif (selection == "2"):
             print("this will eventually show the cart menu")
@@ -156,7 +173,5 @@ while (killprogram == False):
 # finish login menu
 # finish exit loop for login menu
 # main menu
-# user class setters
 # user class grabber from DB (part of login)
-# SQL add support for when data item not found
 #functions to grab from SQL to build user, setters including writing to the DB
