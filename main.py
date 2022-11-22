@@ -17,6 +17,7 @@ except:
 
 cursor = mydb.cursor()
 
+# Function to create a new user. Returns a user object for the session and writes to the SQL Database
 def makeNewUser():
     fname = input("Enter your first name: ")
     lname = input("Enter your last name: ")
@@ -57,12 +58,15 @@ def makeNewUser():
     userID +=1
     newUser = User(userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cardCVV, cardName , cardDate, orderNum = 0)
     newUser.makeDB(cursor, mydb)
-    return(newUser)
+    return newUser
 
+# Function to create a user object for the session for an existing user
 def makeCurrUser(result):
     result = result[0]
     currUser = User(result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7], result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15])
     return currUser
+
+# Function for the login menu, returns currUser object
 def loginMenu():
     print("Welcome to Project29 CLI Game Store\n")
     print("Please select a menu option to continue: ")
@@ -72,9 +76,8 @@ def loginMenu():
         print("3. Exit")
         userInput = input("Please enter an integer menu option: ")
         if(userInput == "1"):
-            print("run the login function")
-            #currUser = login()
-            #return currUser
+            currUser = login()
+            return currUser
         elif(userInput == "2"):
             currUser = makeNewUser()
             return currUser
@@ -90,23 +93,30 @@ def loginMenu():
         else:
             print("Invalid input, please try again.\n")
 
-#function for login process
+
+# Function to log in an existing user. Returns currUser to loginMenu()
 def login():
     print("Login to an existing account")
-    username = input("Please enter your username: ")
+    while (1):
+        userInput = ("Enter your username. Type 'abort' to exit this process. ")
+        query = ("SELECT password FROM Users WHERE username = %s")
+        cursor.execute(query, (userInput,))
+        username = cursor.fetchall()
+        if (username[0] == userInput):
+            username = username[1]
+            break
+        elif (userInput == 'abort'):
+            return 1
+        else:
+            print("Invalid username. Please try again.")
     query = ("SELECT * FROM Users WHERE username=%s")
     cursor.execute(query, (username,))
-    resultantUser = cursor.fetchall()
-    currUser = makeCurrUser(resultantUser)
-    print(resultantUser)
-    #usern validation loop
-    #resultant returns [(0, 'Neil', 'Yakapov', '237 91st Street', 'Edmonton', 'AB', 'T6E 2Z7', 'nyakapov', 'pAsSwOrD!', 'nyakapov@nhl.com', '627-232-1242', '1212646423234232', 134, 'Neil Yakapov', '12/2022', 0)]
-    #iterate the above, and put it into a makecurruser function, returning the user at the end
+    currUser = cursor.fetchall()
+    return makeCurrUser(currUser)
 
-
-#function to create a user object in python during session (iterates a tuple from the DB)
 # Main menu/ driver code (write a better comment than this for the final version)
 #each option below should launch the respective menu
+currUser = loginMenu()
 killprogram = False
 while (killprogram == False):
     print("\nMain Menu:")
