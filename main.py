@@ -59,13 +59,10 @@ def makeNewUser():
     newUser.makeDB(cursor, mydb)
     return(newUser)
 
-def makeCurrUser(username):
-    query = ("SELECT * FROM Users WHERE username = %s")
-    cursor.execute(query,(username,))
-    result = cursor.fetchall()
-    result = result[1]
-    print("this will query with the username, separate the SQL output, and create a user object with the information")
-    # class needs a function to construct a user based on data received from an SQL query. Utilize the user class constructor for doing this
+def makeCurrUser(result):
+    result = result[0]
+    currUser = User(result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7], result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15])
+    return currUser
 def loginMenu():
     print("Welcome to Project29 CLI Game Store\n")
     print("Please select a menu option to continue: ")
@@ -100,8 +97,9 @@ def login():
     query = ("SELECT * FROM Users WHERE username=%s")
     cursor.execute(query, (username,))
     resultantUser = cursor.fetchall()
+    currUser = makeCurrUser(resultantUser)
     print(resultantUser)
-    #convert into a user, then return it
+    #usern validation loop
     #resultant returns [(0, 'Neil', 'Yakapov', '237 91st Street', 'Edmonton', 'AB', 'T6E 2Z7', 'nyakapov', 'pAsSwOrD!', 'nyakapov@nhl.com', '627-232-1242', '1212646423234232', 134, 'Neil Yakapov', '12/2022', 0)]
     #iterate the above, and put it into a makecurruser function, returning the user at the end
 
