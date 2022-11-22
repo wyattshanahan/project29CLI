@@ -172,16 +172,17 @@ class User:
                     print("Invalid input, please try again")
         else:
             print("Incorrect password. Please try again")
-        def checkPassword(self, userInput, userID):
-            while (1):
-                userInput = input("Enter your password. Type 'abort' to exit this process. ")
-                query = ("SELECT password FROM Users WHERE userID = %s")
-                cursor.execute(query, (userID,))
-                correctPassword = cursor.fetchall()
-                if(correctPassword[0] == userInput):
-                    break
-                elif(userInput == 'abort'):
-                    return 1
-                else:
-                    print("Invalid password. Please try again.")
-            return (userInput == correctPassword[1])
+    def checkPassword(self,cursor):
+        while (1):
+            userInput = input("Enter your password. Type 'abort' to exit this process. ")
+            query = ("SELECT password FROM Users WHERE username = %s")
+            cursor.execute(query, (self.username,))
+            correctPassword = cursor.fetchall()
+            correctPassword = correctPassword[0]
+            if(correctPassword[0] == userInput):
+                break
+            elif(userInput == 'abort'):
+                return 1
+            else:
+                print("Invalid password. Please try again.")
+        return (userInput == correctPassword[0])

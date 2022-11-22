@@ -70,26 +70,26 @@ def makeCurrUser(result):
 def loginMenu():
     print("Welcome to Project29 CLI Game Store\n")
     print("Please select a menu option to continue: ")
-    while userInput not in ['1', '2', '3']:
+    while (1):
         print("1. Login")
         print("2. Create a New Account")
         print("3. Exit")
         userInput = input("Please enter an integer menu option: ")
         if(userInput == "1"):
             currUser = login()
+
             return currUser
         elif(userInput == "2"):
             currUser = makeNewUser()
             return currUser
         elif(userInput == "3"):
-            userInput = input("Do you wish to exit? (y/n)")
-            while userInput not in ['y', 'n']:
-                if (userInput == "y" or "Y"):
-                    print("exit")
-                elif(userInput == "n" or "N"):
-                    print("dont exit")
-                else:
-                    print("Invalid input, please try again.\n")
+            while (1):
+                userInput = input("Do you wish to exit? (y/n): ")
+                if ((userInput == "y") or (userInput == "Y")):
+                    return False
+                elif((userInput == "n") or (userInput == "N")):
+                    break
+                else: print ("Invalid input, please try again.\n")
         else:
             print("Invalid input, please try again.\n")
 
@@ -98,12 +98,14 @@ def loginMenu():
 def login():
     print("Login to an existing account")
     while (1):
-        userInput = ("Enter your username. Type 'abort' to exit this process. ")
-        query = ("SELECT password FROM Users WHERE username = %s")
+        userInput = input("Enter your username. Type 'abort' to exit this process. ")
+        query = ("SELECT username FROM Users WHERE username = %s")
         cursor.execute(query, (userInput,))
         username = cursor.fetchall()
+        print(username)
+        username = username[0]
         if (username[0] == userInput):
-            username = username[1]
+            username = username[0]
             break
         elif (userInput == 'abort'):
             return 1
@@ -112,12 +114,23 @@ def login():
     query = ("SELECT * FROM Users WHERE username=%s")
     cursor.execute(query, (username,))
     currUser = cursor.fetchall()
-    return makeCurrUser(currUser)
+    currUser =  makeCurrUser(currUser)
+    loginGood = currUser.checkPassword(cursor)
+    if (loginGood == True):
+        return currUser
 
 # Main menu/ driver code (write a better comment than this for the final version)
 #each option below should launch the respective menu
+
+
+# Checks for valid password login
 currUser = loginMenu()
-killprogram = False
+if isinstance(currUser, User):
+    killprogram = False
+else:
+    killprogram = True
+
+#main driver code, launches after login or registration
 while (killprogram == False):
     print("\nMain Menu:")
     selection = ""
