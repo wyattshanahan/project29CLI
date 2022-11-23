@@ -1,6 +1,12 @@
+# Imports libraries and dependencies
 import mysql.connector
 import sys
 from User import User
+from VideoGame import VideoGame
+from Cart import Cart
+#from OrderHistory import OrderHistory
+
+
 # Attempts a connection to the database server, displays a message if a connection is successful
 try:
     mydb = mysql.connector.connect(
@@ -190,9 +196,5 @@ while (killprogram == False):
 
 
 #TO-DO:
-# login function
 # finish login menu
-# finish exit loop for login menu
 # main menu
-# user class grabber from DB (part of login)
-#functions to grab from SQL to build user, setters including writing to the DB
