@@ -104,11 +104,13 @@ class User:
         mydb.commit()
     def setpassword(self, new_password, cursor, mydb):
         good_password = False
-        while(good_password != True):
-            userInput = input("Please enter your password to continue. To exit, please type 'abort'.")
-            if (userInput == "abort"):
-                return 1
-            good_password = self.checkPassword(self,userInput,self.userID)
+        good_password = self.checkPassword(cursor)
+        if (good_password == 'abort'):
+            print("Action aborted.\n")
+            return False
+        elif (good_password == False):
+            print ("Password check failed. Please try again")
+            return False
         self.password = new_password
         cursor = cursor
         query = ("UPDATE Users SET password=%s WHERE userID =%s")
@@ -151,12 +153,14 @@ class User:
         cursor.execute(query, (new_carddate, self.userID,))
         mydb.commit()
     def delete(self, cursor, mydb):
-        userInput = input("To continue, please enter your password: ")
-        continuer = self.checkPassword(userInput, self.userID)
-        if (continuer):
-            while(1):
-                userInput = input("Are you sure you want to delete your account: ")
-                if (userInput == "y" or "Y"):
+        continuer = self.checkPassword(cursor)
+        if (continuer == 'abort'):
+            print("Action aborted. \n")
+            return False
+        elif (continuer):
+            while (True):
+                userInput = input("Do you wish to delete your account? (y/n): ")
+                if ((userInput == "y") or (userInput == "Y")):
                     print("Deleting your account from the system.")
                     cursor = cursor
                     query = "DELETE FROM Users WHERE userID=?"
@@ -165,24 +169,25 @@ class User:
                     print(cursor.rowcount, "Account deleted successfully.")
                     print()
                     return True
-                elif (userInput == "n" or "N"):
+                elif ((userInput == "n") or (userInput == "N")):
                     print("Aborting deletion.")
                     return False
                 else:
-                    print("Invalid input, please try again")
+                    print("Invalid input, please try again.\n")
         else:
             print("Incorrect password. Please try again")
     def checkPassword(self,cursor):
-        while (1):
+        while (True):
             userInput = input("Enter your password. Type 'abort' to exit this process. ")
+            if (userInput == 'abort'):
+                return False
             query = ("SELECT password FROM Users WHERE username = %s")
             cursor.execute(query, (self.username,))
             correctPassword = cursor.fetchall()
             correctPassword = correctPassword[0]
             if(correctPassword[0] == userInput):
-                break
+                return True
             elif(userInput == 'abort'):
-                return 1
+                return 'abort'
             else:
                 print("Invalid password. Please try again.")
-        return (userInput == correctPassword[0])

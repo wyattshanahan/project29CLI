@@ -126,19 +126,6 @@ def login():
         return currUser
 
 
-# verifies account for deletion, deletes the account, and logs a user out
-
-def deletor(currUser):
-    while (True):
-        userInput = input("Do you wish to delete your account? (y/n): ")
-        if ((userInput == "y") or (userInput == "Y")):
-            out = currUser.delete(cursor, mydb)
-            if (out == True):
-                return True
-        elif ((userInput == "n") or (userInput == "N")):
-            return False
-        else:
-            print("Invalid input, please try again.\n")
 # Main menu/ driver code (write a better comment than this for the final version)
 #each option below should launch the respective menu
 
@@ -182,7 +169,7 @@ while (killprogram == False):
                 elif (userinfo_selection == "2"):
                     print("edit user info menu, after displaying info")
                 elif (userinfo_selection == "3"):
-                    out = deletor(currUser)
+                    out = currUser.delete(cursor,mydb)
                     if (out == True):
                         killprogram = True
                         break
