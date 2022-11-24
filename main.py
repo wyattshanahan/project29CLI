@@ -4,7 +4,7 @@ import sys
 from User import User
 from VideoGame import VideoGame
 from Cart import Cart
-#from OrderHistory import OrderHistory
+# from OrderHistory import OrderHistory
 
 
 # Attempts a connection to the database server, displays a message if a connection is successful
@@ -27,7 +27,7 @@ cursor = mydb.cursor()
 def makeNewUser():
     fname = input("Enter your first name: ")
     lname = input("Enter your last name: ")
-    while (1):
+    while(True):
         email = input("Enter your email address: ")
         query = ("SELECT email FROM Users WHERE email = %s")
         cursor.execute(query, (email,))
@@ -37,7 +37,7 @@ def makeNewUser():
         else:
             break
     telephone = input("Enter your telephone number: ")
-    while(1):
+    while(True):
         username = input("Enter your desired username: ")
         query = ("SELECT username FROM Users WHERE username = %s")
         cursor.execute(query,(username,))
@@ -125,6 +125,20 @@ def login():
     if (loginGood == True):
         return currUser
 
+
+# verifies account for deletion, deletes the account, and logs a user out
+
+def deletor(currUser):
+    while (True):
+        userInput = input("Do you wish to delete your account? (y/n): ")
+        if ((userInput == "y") or (userInput == "Y")):
+            out = currUser.delete(cursor, mydb)
+            if (out == True):
+                return True
+        elif ((userInput == "n") or (userInput == "N")):
+            return False
+        else:
+            print("Invalid input, please try again.\n")
 # Main menu/ driver code (write a better comment than this for the final version)
 #each option below should launch the respective menu
 
@@ -168,7 +182,16 @@ while (killprogram == False):
                 elif (userinfo_selection == "2"):
                     print("edit user info menu, after displaying info")
                 elif (userinfo_selection == "3"):
-                    print("Delete account menu, used to confirm deletion then function to delete it")
+                    out = deletor(currUser)
+                    if (out == True):
+                        killprogram = True
+                        break
+                    elif (out == False):
+                        break
+                    else:
+                        # This code should never be hit, if it is then it will return users to main menu.
+                        print("An unexpected error occured. Please contact the site administrators.\n")
+                        break
                 elif (userinfo_selection == "4"):
                     break
                 else:
@@ -198,3 +221,7 @@ while (killprogram == False):
 #TO-DO:
 # finish login menu
 # main menu
+# sub menus
+# decrement stock upon purchase
+# write out the purchase program
+# user info menus: edit and view, plus test delete user

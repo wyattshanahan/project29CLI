@@ -164,10 +164,10 @@ class User:
                     mydb.commit()
                     print(cursor.rowcount, "Account deleted successfully.")
                     print()
-                    break
+                    return True
                 elif (userInput == "n" or "N"):
                     print("Aborting deletion.")
-                    break
+                    return False
                 else:
                     print("Invalid input, please try again")
         else:
