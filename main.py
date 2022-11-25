@@ -2,8 +2,8 @@
 import mysql.connector
 import sys
 from User import User
-from VideoGame import VideoGame
-from Cart import Cart
+# from VideoGame import VideoGame
+# from Cart import Cart
 # from OrderHistory import OrderHistory
 
 
@@ -166,8 +166,23 @@ while (killprogram == False):
                     print("Invalid option, please try again\n")
 
         elif (selection == "2"):
-            print("this will eventually show the cart menu")
-
+            while(True):
+                print("Cart Menu:")
+                print("1. View Cart")
+                print("2. Check out")
+                print("3. Remove an Item From Cart")
+                print("4. Go Back")
+                userInput = input("Input a number to select a menu option: ")
+                if (userInput == "1"):
+                    print("view cart")
+                elif (userInput == "2"):
+                    print("check out")
+                elif (userInput == "3"):
+                    print("Remove from cart")
+                elif (userInput == "4"):
+                    break
+                else:
+                    print("Invalid option, please try again.")
         elif (selection == "3"):
             # userinfo_selection variable so that the while loop works
             userinfo_selection = ''
@@ -177,11 +192,13 @@ while (killprogram == False):
                 print("2. Edit User Information")
                 print("3. Delete User Account")
                 print("4. Go Back")
-                selection = input("Input a number to select a menu option: ")
+                userinfo_selection = input("Input a number to select a menu option: ")
                 if (userinfo_selection == "1"):
-                    print("display User Information here with a function")
+                    currUser.viewInfo()
+                    break
                 elif (userinfo_selection == "2"):
-                    print("edit user info menu, after displaying info")
+                    currUser.viewInfo()
+                    currUser.editUser(cursor,mydb)
                 elif (userinfo_selection == "3"):
                     out = currUser.delete(cursor,mydb)
                     if (out == True):
@@ -200,7 +217,16 @@ while (killprogram == False):
                     print("Invalid option, please try again\n")
 
         elif (selection == "4"):
-            print("this will eventually show order history")
+            print("Order History:")
+            print("1. View Order History")
+            print("2. Go Back")
+            userInput = input("Input a number to select a menu option:")
+            if (userInput == "1"):
+                print("view order history")
+            elif (userInput == "2"):
+                break
+            else:
+                print("Invalid option, please try again")
         # fix formatting of exit
         # Else if 5 is entered, then launch the exit menu
         elif (selection == "5"):
@@ -227,21 +253,19 @@ while (killprogram == False):
 # sub menus
 # decrement stock upon purchase
 # write out the purchase program
-# user info menus: edit and view, plus test delete user
-# Cart menu listing
+# password length
+
 # view cart option
 # checkout function
 # remove item from cart
 # go back option for cart
 
-# order history menu
 # view order history
 # go back from order history
 
 #inventory menu
 # view inventory
 # add item to cart
-#go back from inventory
 
 #add comments/documentation
 #clean up code
