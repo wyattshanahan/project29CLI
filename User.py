@@ -60,49 +60,58 @@ class User:
     def getordernum(self):
         return self.orderNum
 
-    def setfname(self, new_fname, cursor, mydb):
-        self.fname = new_fname
+    def setfname(self, cursor, mydb):
+        self.fname = input("Enter a new first name: ")
         cursor = cursor
         query = ("UPDATE Users SET fname= %s WHERE userID = %s")
-        cursor.execute(query, (new_fname, self.userID,))
+        cursor.execute(query, (self.fname, self.userID,))
         mydb.commit()
-    def setlname(self, new_lname, cursor, mydb):
-        self.lname = new_lname
+    def setlname(self, cursor, mydb):
+        self.lname = input("Enter a new last name: ")
         cursor = cursor
         query = ("UPDATE Users SET lname=%s WHERE userID =%s")
-        cursor.execute(query, (new_lname, self.userID,))
+        cursor.execute(query, (self.lname, self.userID,))
         mydb.commit()
-    def setstreet(self, new_street, cursor, mydb):
-        self.street = new_street
+    def setstreet(self, cursor, mydb):
+        self.street = input("Enter a new street address: ")
         cursor = cursor
         query = ("UPDATE Users SET street=%s WHERE userID =%s")
-        cursor.execute(query, (new_street, self.userID,))
+        cursor.execute(query, (self.street, self.userID,))
         mydb.commit()
-    def setcity(self, new_city, cursor, mydb):
-        self.city = new_city
+    def setcity(self, cursor, mydb):
+        self.city = input("Enter a new city name: ")
         cursor = cursor
         query = ("UPDATE Users SET city=%s WHERE userID =%s")
-        cursor.execute(query, (new_city, self.userID,))
+        cursor.execute(query, (self.city, self.userID,))
         mydb.commit()
-    def setstate(self, new_state, cursor, mydb):
-        self.state = new_state
+    def setstate(self, cursor, mydb):
+        self.state = input("Enter a new state abbreviation: ")
         cursor = cursor
         query = ("UPDATE Users SET state=%s WHERE userID =%s")
-        cursor.execute(query, (new_state, self.userID,))
+        cursor.execute(query, (self.state, self.userID,))
         mydb.commit()
-    def setzip(self, new_zip, cursor, mydb):
-        self.zip = new_zip
+    def setzip(self, cursor, mydb):
+        self.zip = input("Enter a new zip/postal code: ")
         cursor = cursor
         query = ("UPDATE Users SET userZip=%s WHERE userID =%s")
-        cursor.execute(query, (new_zip, self.userID,))
+        cursor.execute(query, (self.zip, self.userID,))
         mydb.commit()
-    def setusername(self, new_name, cursor, mydb):
-        self.username = new_name
+    def setusername(self, cursor, mydb):
         cursor = cursor
+        while (True):
+            username = input("Enter a new username: ")
+            query = ("SELECT username FROM Users WHERE username = %s")
+            cursor.execute(query, (username,))
+            status = cursor.fetchall()
+            if status != []:
+                print("Username already exists. Please try again")
+            else:
+                break
+        self.username = username
         query = ("UPDATE Users SET username=%s WHERE userID =%s")
-        cursor.execute(query, (new_name, self.userID,))
+        cursor.execute(query, (self.username, self.userID,))
         mydb.commit()
-    def setpassword(self, new_password, cursor, mydb):
+    def setpassword(self, cursor, mydb):
         good_password = False
         good_password = self.checkPassword(cursor)
         if (good_password == 'abort'):
@@ -111,46 +120,55 @@ class User:
         elif (good_password == False):
             print ("Password check failed. Please try again")
             return False
-        self.password = new_password
+        self.password = input("Enter your new password: ")
         cursor = cursor
         query = ("UPDATE Users SET password=%s WHERE userID =%s")
-        cursor.execute(query, (new_password, self.userID,))
+        cursor.execute(query, (self.password, self.userID,))
         mydb.commit()
-    def setemail(self, new_email, cursor, mydb):
-        self.email = new_email
+    def setemail(self, cursor, mydb):
         cursor = cursor
+        while (True):
+            email = input("Enter a new email: ")
+            query = ("SELECT email FROM Users WHERE userID = %s")
+            cursor.execute(query, (email,))
+            status = cursor.fetchall()
+            if status != []:
+                print("Email already exists. Please try again")
+            else:
+                break
+        self.email = email
         query = ("UPDATE Users SET email=%s WHERE userID =%s")
-        cursor.execute(query, (new_email, self.userID,))
+        cursor.execute(query, (self.email, self.userID,))
         mydb.commit()
-    def settelephone(self, new_phone, cursor, mydb):
-        self.telephone = new_phone
+    def settelephone(self, cursor, mydb):
+        self.telephone = input("Enter a new telephone number: ")
         cursor = cursor
         query = ("UPDATE Users SET telephone=%s WHERE userID =%s")
-        cursor.execute(query, (new_phone, self.userID,))
+        cursor.execute(query, (self.telephone, self.userID,))
         mydb.commit()
-    def setcardnum(self, new_cardnum, cursor, mydb):
-        self.cardNum = new_cardnum
+    def setcardnum(self, cursor, mydb):
+        self.cardNum = input("Enter a new card number: ")
         cursor = cursor
         query = ("UPDATE Users SET cardNum=%s WHERE userID =%s")
-        cursor.execute(query, (new_cardnum, self.userID,))
+        cursor.execute(query, (self.cardNum, self.userID,))
         mydb.commit()
-    def setcvv(self, new_cvv, cursor, mydb):
-        self.cvv = new_cvv
+    def setcvv(self, cursor, mydb):
+        self.cvv = input("Enter a new CVV number: ")
         cursor = cursor
         query = ("UPDATE Users SET cvv=%s WHERE userID =%s")
-        cursor.execute(query, (new_cvv, self.userID,))
+        cursor.execute(query, (self.cvv, self.userID,))
         mydb.commit()
-    def setcardname(self, new_cardname, cursor, mydb):
-        self.cardName = new_cardname
+    def setcardname(self, cursor, mydb):
+        self.cardName = input("Enter a new card name: ")
         cursor = cursor
         query = ("UPDATE Users SET cardName=%s WHERE userID =%s")
-        cursor.execute(query, (new_cardname, self.userID,))
+        cursor.execute(query, (self.cardName, self.userID,))
         mydb.commit()
-    def setcarddate(self, new_carddate, cursor, mydb):
-        self.cardDate = new_carddate
+    def setcarddate(self, cursor, mydb):
+        self.cardDate = input("Enter a new card expiration date: ")
         cursor = cursor
         query = ("UPDATE Users SET cardDate=%s WHERE userID =%s")
-        cursor.execute(query, (new_carddate, self.userID,))
+        cursor.execute(query, (self.cardDate, self.userID,))
         mydb.commit()
     def delete(self, cursor, mydb):
         continuer = self.checkPassword(cursor)
@@ -180,7 +198,7 @@ class User:
         while (True):
             userInput = input("Enter your password. Type 'abort' to exit this process. ")
             if (userInput == 'abort'):
-                return False
+                return 'abort'
             query = ("SELECT password FROM Users WHERE username = %s")
             cursor.execute(query, (self.username,))
             correctPassword = cursor.fetchall()
@@ -191,3 +209,66 @@ class User:
                 return 'abort'
             else:
                 print("Invalid password. Please try again.")
+
+    def viewInfo(self):
+        print("User Account Information\n")
+        print("Name: " + self.fname + " " + self.lname)
+        print("Address: " + self.street + " " + self.city + ", " + self.state + " " + self.zip)
+        print("Username: " + self.username)
+        print("Email: " + self.email)
+        print("Telephone: " + self.telephone)
+        print("Payment Method: \n\tCard Number: " + str(self.cardNum) + "\n\tCVV: " + str(self.cvv) + "\n\tName on Card: " + self.cardName + "\n\tCard Expiration Date: " + self.cardDate)
+        print("Number of Orders: " + str(self.orderNum))
+
+    def editUser(self,cursor,mydb):
+        exit = False
+        while(exit == False):
+            print("Select which value you wish to edit")
+            print("1. First name")
+            print("2. Last name")
+            print("3. Street and Address")
+            print("4. City")
+            print("5. State")
+            print("6. Zip/Postal Code")
+            print("7. Username")
+            print("8. Password")
+            print("9. E-mail")
+            print("10. Telephone")
+            print("11. Card number")
+            print("12. Card CVV")
+            print("13. Name on Card")
+            print("14. Card Expiration Date")
+            print("15. Exit")
+            userInput = input("Input a number to select a menu option: ")
+            if (userInput == "1"):
+               self.setfname(cursor, mydb)
+            elif (userInput == "2"):
+                self.setlname(cursor, mydb)
+            elif(userInput == "3"):
+                self.setstreet(cursor, mydb)
+            elif (userInput == "4"):
+                self.setcity(cursor, mydb)
+            elif (userInput == "5"):
+                self.setstate(cursor, mydb)
+            elif (userInput == "6"):
+                self.setzip(cursor, mydb)
+            elif (userInput == "7"):
+                self.setusername(cursor, mydb)
+            elif (userInput == "8"):
+                self.setpassword(cursor,mydb)
+            elif (userInput == "9"):
+                self.setemail(cursor, mydb)
+            elif (userInput == "10"):
+                self.settelephone(cursor, mydb)
+            elif (userInput == "11"):
+                self.setcardnum(cursor, mydb)
+            elif (userInput == "12"):
+                self.setcvv(cursor, mydb)
+            elif (userInput == "13"):
+                self.setcardname(cursor, mydb)
+            elif (userInput == "14"):
+                self.setcarddate(cursor, mydb)
+            elif (userInput == "15"):
+                break
+            else:
+                print("Invalid input, please try again.")
