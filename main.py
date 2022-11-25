@@ -127,17 +127,17 @@ def login():
 
 
 # Main menu/ driver code (write a better comment than this for the final version)
-#each option below should launch the respective menu
-
+# each option below should launch the respective menu
 
 # Checks for valid password login
 currUser = loginMenu()
 if isinstance(currUser, User):
     killprogram = False
 else:
+    print("Logging you out and ending your session.\n")
     killprogram = True
 
-#main driver code, launches after login or registration
+# main driver code, launches after login or registration
 while (killprogram == False):
     print("\nMain Menu:")
     selection = ""
@@ -148,12 +148,26 @@ while (killprogram == False):
         print("4. View Order History")
         print("5. Log Out")
         selection = input("Input a number to select a menu option: ")
+
         if (selection == "1"):
-            print("this will eventually show inventory")
-            #login()
-            makeNewUser()
+            while(True):
+                print("\nInventory menu: ")
+                print("1. View Inventory")
+                print("2. Add Item to Cart")
+                print("3. Go Back")
+                userInput = input("Input a number to select a menu option: ")
+                if(userInput == "1"):
+                    print ("show inventory, use sql parser and a view function")
+                elif(userInput == "2"):
+                    print ("add an item to cart")
+                elif(userInput == "3"):
+                    break
+                else:
+                    print("Invalid option, please try again\n")
+
         elif (selection == "2"):
             print("this will eventually show the cart menu")
+
         elif (selection == "3"):
             # userinfo_selection variable so that the while loop works
             userinfo_selection = ''
@@ -179,10 +193,12 @@ while (killprogram == False):
                         # This code should never be hit, if it is then it will return users to main menu.
                         print("An unexpected error occured. Please contact the site administrators.\n")
                         break
+
                 elif (userinfo_selection == "4"):
                     break
                 else:
                     print("Invalid option, please try again\n")
+
         elif (selection == "4"):
             print("this will eventually show order history")
         # fix formatting of exit
@@ -212,3 +228,20 @@ while (killprogram == False):
 # decrement stock upon purchase
 # write out the purchase program
 # user info menus: edit and view, plus test delete user
+# Cart menu listing
+# view cart option
+# checkout function
+# remove item from cart
+# go back option for cart
+
+# order history menu
+# view order history
+# go back from order history
+
+#inventory menu
+# view inventory
+# add item to cart
+#go back from inventory
+
+#add comments/documentation
+#clean up code
