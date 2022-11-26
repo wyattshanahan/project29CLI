@@ -108,7 +108,6 @@ def login():
         query = ("SELECT username FROM Users WHERE username = %s")
         cursor.execute(query, (userInput,))
         username = cursor.fetchall()
-        print(username)
         username = username[0]
         if (username[0] == userInput):
             username = username[0]
@@ -117,7 +116,7 @@ def login():
             return 1
         else:
             print("Invalid username. Please try again.")
-    query = ("SELECT * FROM Users WHERE username=%s")
+    query = ("SELECT * FROM Users WHERE username = %s")
     cursor.execute(query, (username,))
     currUser = cursor.fetchall()
     currUser =  makeCurrUser(currUser)
@@ -166,20 +165,21 @@ while (killprogram == False):
                     print("Invalid option, please try again\n")
 
         elif (selection == "2"):
-            while(True):
+            cart_selection = ''
+            while cart_selection not in ['1', '2', '3', '4']:
                 print("Cart Menu:")
                 print("1. View Cart")
                 print("2. Check out")
                 print("3. Remove an Item From Cart")
                 print("4. Go Back")
-                userInput = input("Input a number to select a menu option: ")
-                if (userInput == "1"):
+                cart_selection = input("Input a number to select a menu option: ")
+                if (cart_selection == "1"):
                     print("view cart")
-                elif (userInput == "2"):
+                elif (cart_selection == "2"):
                     print("check out")
-                elif (userInput == "3"):
+                elif (cart_selection == "3"):
                     print("Remove from cart")
-                elif (userInput == "4"):
+                elif (cart_selection == "4"):
                     break
                 else:
                     print("Invalid option, please try again.")
@@ -192,7 +192,7 @@ while (killprogram == False):
                 print("2. Edit User Information")
                 print("3. Delete User Account")
                 print("4. Go Back")
-                userinfo_selection = input("Input a number to select a menu option: ")
+                userInput = input("Input a number to select a menu option: ")
                 if (userinfo_selection == "1"):
                     currUser.viewInfo()
                     break
@@ -208,7 +208,7 @@ while (killprogram == False):
                         break
                     else:
                         # This code should never be hit, if it is then it will return users to main menu.
-                        print("An unexpected error occured. Please contact the site administrators.\n")
+                        print("An unexpected error occurred. Please contact the site administrators.\n")
                         break
 
                 elif (userinfo_selection == "4"):
@@ -242,9 +242,9 @@ while (killprogram == False):
                 elif (selection == "2"):
                     break
                 else:
-                    print("Invalid option, please try again")
+                    print("Invalid input, please try again.\n")
         else:
-            print("Invalid option, please try again\n")
+            print("Invalid input, please try again.\n")
 
 
 #TO-DO:
@@ -263,10 +263,17 @@ while (killprogram == False):
 # view order history
 # go back from order history
 
-#inventory menu
+# inventory menu
 # view inventory
+# to make this work, use a loop to create game options, numbered, and display info about them
 # add item to cart
 
-#add comments/documentation
-#clean up code
+# add comments/documentation
+    #comments/doc for main
+    #comments/doc for user class
+    #comments/doc for cart class
+    #comments/doc for inventory class
+    #comments/doc for history class
+# clean up code
+#   should this be pythonic? check rubric
 #

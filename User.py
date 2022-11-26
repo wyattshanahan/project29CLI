@@ -41,8 +41,6 @@ class User:
         return self.zip
     def getusername(self):
         return self.username
-
-   #do we need a getter for password?
     def getpassword(self):
         return self.password
     def getemail(self):
@@ -63,37 +61,37 @@ class User:
     def setfname(self, cursor, mydb):
         self.fname = input("Enter a new first name: ")
         cursor = cursor
-        query = ("UPDATE Users SET fname= %s WHERE userID = %s")
+        query = ("UPDATE Users SET fname = %s WHERE userID = %s")
         cursor.execute(query, (self.fname, self.userID,))
         mydb.commit()
     def setlname(self, cursor, mydb):
         self.lname = input("Enter a new last name: ")
         cursor = cursor
-        query = ("UPDATE Users SET lname=%s WHERE userID =%s")
+        query = ("UPDATE Users SET lname = %s WHERE userID = %s")
         cursor.execute(query, (self.lname, self.userID,))
         mydb.commit()
     def setstreet(self, cursor, mydb):
         self.street = input("Enter a new street address: ")
         cursor = cursor
-        query = ("UPDATE Users SET street=%s WHERE userID =%s")
+        query = ("UPDATE Users SET street = %s WHERE userID = %s")
         cursor.execute(query, (self.street, self.userID,))
         mydb.commit()
     def setcity(self, cursor, mydb):
         self.city = input("Enter a new city name: ")
         cursor = cursor
-        query = ("UPDATE Users SET city=%s WHERE userID =%s")
+        query = ("UPDATE Users SET city = %s WHERE userID = %s")
         cursor.execute(query, (self.city, self.userID,))
         mydb.commit()
     def setstate(self, cursor, mydb):
         self.state = input("Enter a new state abbreviation: ")
         cursor = cursor
-        query = ("UPDATE Users SET state=%s WHERE userID =%s")
+        query = ("UPDATE Users SET state = %s WHERE userID = %s")
         cursor.execute(query, (self.state, self.userID,))
         mydb.commit()
     def setzip(self, cursor, mydb):
         self.zip = input("Enter a new zip/postal code: ")
         cursor = cursor
-        query = ("UPDATE Users SET userZip=%s WHERE userID =%s")
+        query = ("UPDATE Users SET userZip = %s WHERE userID = %s")
         cursor.execute(query, (self.zip, self.userID,))
         mydb.commit()
     def setusername(self, cursor, mydb):
@@ -108,7 +106,7 @@ class User:
             else:
                 break
         self.username = username
-        query = ("UPDATE Users SET username=%s WHERE userID =%s")
+        query = ("UPDATE Users SET username = %s WHERE userID = %s")
         cursor.execute(query, (self.username, self.userID,))
         mydb.commit()
     def setpassword(self, cursor, mydb):
@@ -122,7 +120,7 @@ class User:
             return False
         self.password = input("Enter your new password: ")
         cursor = cursor
-        query = ("UPDATE Users SET password=%s WHERE userID =%s")
+        query = ("UPDATE Users SET password = %s WHERE userID = %s")
         cursor.execute(query, (self.password, self.userID,))
         mydb.commit()
     def setemail(self, cursor, mydb):
@@ -137,37 +135,37 @@ class User:
             else:
                 break
         self.email = email
-        query = ("UPDATE Users SET email=%s WHERE userID =%s")
+        query = ("UPDATE Users SET email = %s WHERE userID = %s")
         cursor.execute(query, (self.email, self.userID,))
         mydb.commit()
     def settelephone(self, cursor, mydb):
         self.telephone = input("Enter a new telephone number: ")
         cursor = cursor
-        query = ("UPDATE Users SET telephone=%s WHERE userID =%s")
+        query = ("UPDATE Users SET telephone = %s WHERE userID = %s")
         cursor.execute(query, (self.telephone, self.userID,))
         mydb.commit()
     def setcardnum(self, cursor, mydb):
         self.cardNum = input("Enter a new card number: ")
         cursor = cursor
-        query = ("UPDATE Users SET cardNum=%s WHERE userID =%s")
+        query = ("UPDATE Users SET cardNum = %s WHERE userID = %s")
         cursor.execute(query, (self.cardNum, self.userID,))
         mydb.commit()
     def setcvv(self, cursor, mydb):
         self.cvv = input("Enter a new CVV number: ")
         cursor = cursor
-        query = ("UPDATE Users SET cvv=%s WHERE userID =%s")
+        query = ("UPDATE Users SET cvv = %s WHERE userID = %s")
         cursor.execute(query, (self.cvv, self.userID,))
         mydb.commit()
     def setcardname(self, cursor, mydb):
         self.cardName = input("Enter a new card name: ")
         cursor = cursor
-        query = ("UPDATE Users SET cardName=%s WHERE userID =%s")
+        query = ("UPDATE Users SET cardName = %s WHERE userID = %s")
         cursor.execute(query, (self.cardName, self.userID,))
         mydb.commit()
     def setcarddate(self, cursor, mydb):
         self.cardDate = input("Enter a new card expiration date: ")
         cursor = cursor
-        query = ("UPDATE Users SET cardDate=%s WHERE userID =%s")
+        query = ("UPDATE Users SET cardDate = %s WHERE userID = %s")
         cursor.execute(query, (self.cardDate, self.userID,))
         mydb.commit()
     def delete(self, cursor, mydb):
@@ -181,7 +179,7 @@ class User:
                 if ((userInput == "y") or (userInput == "Y")):
                     print("Deleting your account from the system.")
                     cursor = cursor
-                    query = "DELETE FROM Users WHERE userID=?"
+                    query = ("DELETE FROM Users WHERE userID = %s")
                     cursor.execute(query, self.userID)
                     mydb.commit()
                     print(cursor.rowcount, "Account deleted successfully.")
