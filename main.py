@@ -76,46 +76,45 @@ def makeCurrUser(result):
 def loginMenu():
     print("Welcome to Project29 CLI Game Store\n")
     print("Please select a menu option to continue: ")
-    while (1):
+    while (True):
         print("1. Login")
         print("2. Create a New Account")
         print("3. Exit")
-        userInput = input("Please enter an integer menu option: ")
+        userInput = input("Input a number to select a menu option: ")
         if(userInput == "1"):
             currUser = login()
-
             return currUser
         elif(userInput == "2"):
             currUser = makeNewUser()
             return currUser
         elif(userInput == "3"):
-            while (1):
+            while (True):
                 userInput = input("Do you wish to exit? (y/n): ")
                 if ((userInput == "y") or (userInput == "Y")):
                     return False
                 elif((userInput == "n") or (userInput == "N")):
                     break
-                else: print ("Invalid input, please try again.\n")
+                else: print("Invalid input, please try again.\n")
         else:
             print("Invalid input, please try again.\n")
 
-
 # Function to log in an existing user. Returns currUser to loginMenu()
 def login():
-    print("Login to an existing account")
-    while (1):
+    print("\nLog into an existing account.")
+    while (True):
         userInput = input("Enter your username. Type 'abort' to exit this process. ")
+        if (userInput == 'abort'):
+            return 1
         query = ("SELECT username FROM Users WHERE username = %s")
         cursor.execute(query, (userInput,))
         username = cursor.fetchall()
-        username = username[0]
-        if (username[0] == userInput):
-            username = username[0]
-            break
-        elif (userInput == 'abort'):
-            return 1
-        else:
+        if (username == []):
             print("Invalid username. Please try again.")
+        else:
+            username = username[0]
+            if(username[0] == userInput):
+                username = username[0]
+                break
     query = ("SELECT * FROM Users WHERE username = %s")
     cursor.execute(query, (username,))
     currUser = cursor.fetchall()
@@ -123,7 +122,6 @@ def login():
     loginGood = currUser.checkPassword(cursor)
     if (loginGood == True):
         return currUser
-
 
 # Main menu/ driver code (write a better comment than this for the final version)
 # each option below should launch the respective menu
@@ -149,7 +147,8 @@ while (killprogram == False):
         selection = input("Input a number to select a menu option: ")
 
         if (selection == "1"):
-            while(True):
+            userInput = ''
+            while userInput not in ['1', '2', '3']:
                 print("\nInventory menu: ")
                 print("1. View Inventory")
                 print("2. Add Item to Cart")
@@ -248,7 +247,6 @@ while (killprogram == False):
 
 
 #TO-DO:
-# finish login menu
 # main menu
 # sub menus
 # decrement stock upon purchase
