@@ -123,6 +123,26 @@ def login():
     if (loginGood == True):
         return currUser
 
+def deleteUser(user,cursor, mydb):
+    continuer = currUser.checkPassword(cursor)
+    if (continuer == 'abort'):
+        print("Action aborted. \n")
+        return False
+    elif (continuer):
+        while (True):
+            userInput = input("Do you wish to delete your account? (y/n): ")
+            if ((userInput == "y") or (userInput == "Y")):
+                print("Deleting your account from the system.")
+                out = currUser.delete(cursor, mydb)
+                return out
+            elif ((userInput == "n") or (userInput == "N")):
+                print("Aborting deletion.")
+                return False
+            else:
+                print("Invalid input, please try again.\n")
+    else:
+        print("Incorrect password. Please try again")
+
 # Main menu/ driver code (write a better comment than this for the final version)
 # each option below should launch the respective menu
 
@@ -191,15 +211,15 @@ while (killprogram == False):
                 print("2. Edit User Information")
                 print("3. Delete User Account")
                 print("4. Go Back")
-                userInput = input("Input a number to select a menu option: ")
-                if (userinfo_selection == "1"):
+                userinfo_selection = input("Input a number to select a menu option: ")
+                if (userinfo_selection == '1'):
                     currUser.viewInfo()
                     break
-                elif (userinfo_selection == "2"):
+                elif (userinfo_selection == '2'):
                     currUser.viewInfo()
                     currUser.editUser(cursor,mydb)
-                elif (userinfo_selection == "3"):
-                    out = currUser.delete(cursor,mydb)
+                elif (userinfo_selection == '3'):
+                    out = deleteUser(currUser,cursor,mydb)
                     if (out == True):
                         killprogram = True
                         break

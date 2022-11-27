@@ -169,29 +169,13 @@ class User:
         cursor.execute(query, (self.cardDate, self.userID,))
         mydb.commit()
     def delete(self, cursor, mydb):
-        continuer = self.checkPassword(cursor)
-        if (continuer == 'abort'):
-            print("Action aborted. \n")
-            return False
-        elif (continuer):
-            while (True):
-                userInput = input("Do you wish to delete your account? (y/n): ")
-                if ((userInput == "y") or (userInput == "Y")):
-                    print("Deleting your account from the system.")
-                    cursor = cursor
-                    query = ("DELETE FROM Users WHERE userID = %s")
-                    cursor.execute(query, self.userID)
-                    mydb.commit()
-                    print(cursor.rowcount, "Account deleted successfully.")
-                    print()
-                    return True
-                elif ((userInput == "n") or (userInput == "N")):
-                    print("Aborting deletion.")
-                    return False
-                else:
-                    print("Invalid input, please try again.\n")
-        else:
-            print("Incorrect password. Please try again")
+        cursor = cursor
+        query = ("DELETE FROM Users WHERE userID = %s")
+        data = self.userID
+        cursor.execute(query, (data,))
+        mydb.commit()
+        print("Account deleted successfully.")
+        return True
     def checkPassword(self,cursor):
         while (True):
             userInput = input("Enter your password. Type 'abort' to exit this process. ")
