@@ -1,5 +1,7 @@
 # User class file containing the constructor, getters, setters, deletion, makeDB, and password checker functions.
 class User:
+
+  # User class constructor, takes input and builds a user class object
     def __init__(self, userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cvv, cardName, cardDate, orderNum):
         self.userID = userID
         self.fname = fname
@@ -17,6 +19,8 @@ class User:
         self.cardName = cardName
         self.cardDate = cardDate
         self.orderNum = orderNum
+
+    # function to write a User into the User SQL table, done during account creation
     def makeDB(self, cursor, mydb):
         cursor = cursor
         query = "INSERT INTO Users (userID, fname, lname, street, city, state, userZip, username, password, email, telephone, cardNum, cvv, cardName,cardDate, orderNum) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -25,6 +29,8 @@ class User:
         mydb.commit()
         print(cursor.rowcount, "record inserted.")
         print()
+
+    # getters, which return a specific object attribute
     def getID(self):
         return self.userID
     def getfname(self):
@@ -58,6 +64,7 @@ class User:
     def getordernum(self):
         return self.orderNum
 
+    # Setters, which take user input, update the attribute of the user class, and then write the update to the User SQL table
     def setfname(self, cursor, mydb):
         self.fname = input("Enter a new first name: ")
         cursor = cursor
@@ -168,6 +175,8 @@ class User:
         query = ("UPDATE Users SET cardDate = %s WHERE userID = %s")
         cursor.execute(query, (self.cardDate, self.userID,))
         mydb.commit()
+
+    # Class function to delete a user account. Removes the user from the database and then logs the user out and ends the session
     def delete(self, cursor, mydb):
         cursor = cursor
         query = ("DELETE FROM Users WHERE userID = %s")
@@ -176,6 +185,8 @@ class User:
         mydb.commit()
         print("Account deleted successfully.")
         return True
+
+    # Class function to check a user's password. Used for authentication when accessing data
     def checkPassword(self,cursor):
         while (True):
             userInput = input("Enter your password. Type 'abort' to exit this process. ")
@@ -192,6 +203,7 @@ class User:
             else:
                 print("Invalid password. Please try again.")
 
+    # Class function to view user information. Returns class attributes in a formatted console printout
     def viewInfo(self):
         print("User Account Information\n")
         print("Name: " + self.fname + " " + self.lname)
@@ -202,6 +214,7 @@ class User:
         print("Payment Method: \n\tCard Number: " + str(self.cardNum) + "\n\tCVV: " + str(self.cvv) + "\n\tName on Card: " + self.cardName + "\n\tCard Expiration Date: " + self.cardDate)
         print("Number of Orders: " + str(self.orderNum))
 
+    # Class function that allows a user to edit most attributes stored by the user object. Includes menu and calling the setters
     def editUser(self,cursor,mydb):
         exit = False
         while(exit == False):
