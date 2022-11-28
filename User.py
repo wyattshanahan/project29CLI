@@ -264,6 +264,6 @@ class User:
             elif (userInput == "14"):
                 self.setcarddate(cursor, mydb)
             elif (userInput == "15"):
-                break
+                exit = True
             else:
                 print("Invalid input, please try again.")

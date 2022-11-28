@@ -166,6 +166,7 @@ while (killprogram == False):
         print("5. Log Out")
         selection = input("Input a number to select a menu option: ")
 
+    # Inventory submenu, allows a user to view inventory and add it to their cart
         if (selection == "1"):
             userInput = ''
             while userInput not in ['1', '2', '3']:
@@ -209,6 +210,7 @@ while (killprogram == False):
                 else:
                     print("Invalid option, please try again\n")
 
+    # Cart submenu, allows a user to view their cart, check out, and remove items from their cart
         elif (selection == "2"):
             cart_selection = ''
             while cart_selection not in ['1', '2', '3', '4']:
@@ -228,6 +230,8 @@ while (killprogram == False):
                     break
                 else:
                     print("Invalid option, please try again.")
+
+    # User information menu. Allows a user to view their account information, edit the information, or delete their account
         elif (selection == "3"):
             # userinfo_selection variable so that the while loop works
             userinfo_selection = ''
@@ -238,12 +242,18 @@ while (killprogram == False):
                 print("3. Delete User Account")
                 print("4. Go Back")
                 userinfo_selection = input("Input a number to select a menu option: ")
+                # Selection of 1 calls the viewInfo class function and then returns to the main menu
                 if (userinfo_selection == '1'):
                     currUser.viewInfo()
                     break
+                # Selection of 2 calls the viewInfo class function, then the editUser function to let users edit information.
+                # It then returns to the home menu
                 elif (userinfo_selection == '2'):
                     currUser.viewInfo()
                     currUser.editUser(cursor,mydb)
+                    break
+                # Selection of 3 calls the deleteUser class function. If the user is deleted, then the session is ended
+                # If the user is not deleted (out == False), then the user is returned to the main menu
                 elif (userinfo_selection == '3'):
                     out = deleteUser(currUser,cursor,mydb)
                     if (out == True):
@@ -255,9 +265,10 @@ while (killprogram == False):
                         # This code should never be hit, if it is then it will return users to main menu.
                         print("An unexpected error occurred. Please contact the site administrators.\n")
                         break
-
+                # Selection of 4 returns the User to the main menu
                 elif (userinfo_selection == "4"):
                     break
+                # If no valid input is received, an error message is displayed and the menu loops
                 else:
                     print("Invalid option, please try again\n")
 
@@ -314,7 +325,6 @@ while (killprogram == False):
 
 # add comments/documentation
     #comments/doc for main
-    #comments/doc for user class
     #comments/doc for cart class
     #comments/doc for inventory class
     #comments/doc for history class
