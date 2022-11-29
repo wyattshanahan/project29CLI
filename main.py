@@ -1,5 +1,6 @@
 # Imports libraries and dependencies
 import mysql.connector
+from mysql.connector import Error
 import sys
 from User import User
 from VideoGame import VideoGame
@@ -10,12 +11,16 @@ from VideoGame import VideoGame
 # Attempts a connection to the database server, displays a message if a connection is successful
 try:
     mydb = mysql.connector.connect(
-        host="localhost",
+        host="127.0.0.1",
         user="root",
         password="",
         database="project29"
     )
     print("Successfully connected to the database")
+# Returns a specific error code if possible if the connection fails
+except Error as e:
+    print("Error connecting to the database: ", e)
+    sys.exit()
 # If connecting to the database server fails, an error message is displayed and the process ends
 except:
     print("Failed to connect to the database")
@@ -200,7 +205,7 @@ while (killprogram == False):
                             result = result[0]
                             if (result[0] == userInput):
                                 result = result[0]
-                                currGame = VideoGame(result[0], result[1], result[2], result[3], result[4], result[5])
+                                currGame = VideoGame(result[0], result[1], result[2], result[3], result[4], result[5], result[6])
                                 currGame.viewInfo()
                                 break
                 elif(userInput == "3"):
