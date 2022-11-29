@@ -41,7 +41,8 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`Title`, `Developer`, `Release Year`, `Console`, `GameID`, `Quantity`) VALUES
-('Halo: Combat Evolved', '343 Industries', '2001', 'Xbox', '1063', '8');
+('Halo: Combat Evolved', '343 Industries', '2001', 'Xbox', '1063', '8', '19.99'),
+('Minecraft', 'Mojang Studios', '2017', 'New Nintendo 3DS', '1292', '11', '32.99');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

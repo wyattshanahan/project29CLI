@@ -174,7 +174,7 @@ while (killprogram == False):
     # Inventory submenu, allows a user to view inventory and add it to their cart
         if (selection == "1"):
             userInput = ''
-            while userInput not in ['1', '2', '3']:
+            while (True):
                 print("\nInventory menu: ")
                 print("1. View Inventory")
                 print("2. View a Specific Item")
@@ -185,12 +185,14 @@ while (killprogram == False):
                     print("\nInventory: ")
                     cursor.execute("SELECT GameID FROM inventory")
                     GameIDs = cursor.fetchall()
-                    GameIDs = GameIDs[0]
-                    cursor.execute("SELECT Title FROM inventory")
-                    titles = cursor.fetchall()
-                    titles = titles[0]
-                    for i in range(0,len(titles)):
-                        print(str(GameIDs[i]) + ". " + str(titles[i]))
+                    GameIDs = tuple(GameIDs)
+                    for outer in GameIDs:
+                        for inner in outer:
+                            currGame = inner
+                            query = ("SELECT Title FROM inventory WHERE GameID = %s")
+                            cursor.execute(query, (currGame,))
+                            titles = cursor.fetchall()
+                            print(str(currGame) + ". " + str(titles[0][0]))
                 elif(userInput == "2"):
                     while (True):
                         userInput = input("\nEnter 'abort' to exit this menu.\nEnter a GameID (listed before a game title) to view it's details:")
@@ -200,14 +202,12 @@ while (killprogram == False):
                         cursor.execute(query, (userInput,))
                         result = cursor.fetchall()
                         if (result == []):
-                            print("Invalid username. Please try again.")
+                            print("Invalid gameID. Please try again.")
                         else:
                             result = result[0]
-                            if (result[0] == userInput):
-                                result = result[0]
-                                currGame = VideoGame(result[0], result[1], result[2], result[3], result[4], result[5], result[6])
-                                currGame.viewInfo()
-                                break
+                            currGame = VideoGame(result[0], result[1], result[2], result[3], result[4], result[5], result[6])
+                            currGame.viewInfo()
+                            break
                 elif(userInput == "3"):
                     print("Add a game to cart by gameid")
                 elif(userInput == "4"):
