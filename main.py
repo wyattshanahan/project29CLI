@@ -346,9 +346,7 @@ while (killprogram == False):
 # go back from order history
 
 # inventory menu
-# view inventory
-# to make this work, use a loop to create game options, numbered, and display info about them
-# add item to cart
+# clean this menu up
 
 # add comments/documentation
     #comments/doc for main

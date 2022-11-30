@@ -8,10 +8,10 @@ class Cart:
 # View items in your cart
     def viewCart(self, cursor):
         cursor = cursor
-        cursor.execute("SELECT * FROM cart")
-
+        query = ("SELECT * FROM cart WHERE userID = %s")
+        data = self.UserID
+        cursor.execute(query, (data,))
         myresult = cursor.fetchall()
-
         for x in myresult:
             print("Title: " + x[0] + " --- " + x[2])
             print("\tQuantity: ", x[1])
