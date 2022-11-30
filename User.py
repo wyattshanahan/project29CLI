@@ -27,7 +27,7 @@ class User:
         data = (self.userID, self.fname, self.lname, self.street, self.city, self.state, self.zip, self.username, self.password, self.email, self.telephone, self.cardNum, self.cvv, self.cardName, self.cardDate, self.orderNum)
         cursor.execute(query, data)
         mydb.commit()
-        print(cursor.rowcount, "record inserted.")
+        print("Account created successfully!")
 
     # Setters, which take user input, update the attribute of the user class, and then write the update to the User SQL table
     def setfname(self, cursor, mydb):
