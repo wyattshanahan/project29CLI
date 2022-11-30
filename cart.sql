@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `cart` (
   `Title` text NOT NULL,
   `Quantity` int(11) NOT NULL,
-  `GameID` text NOT NULL
+  `GameID` text NOT NULL,
+  `UserID` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 COMMIT;
 

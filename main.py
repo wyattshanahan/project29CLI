@@ -148,6 +148,21 @@ def deleteUser(user,cursor, mydb):
     else:
         print("Incorrect password. Please try again")
 
+# function to build a VideoGame object, used for Cart class and inventory class submenus
+def grabGame(cursor, mydb):
+    while (True):
+        currGameID = input("Enter a GameID: ")
+        if (currGameID == 'abort'):
+            return 'abort'
+        query = ("SELECT * FROM inventory WHERE GameID = %s")
+        cursor.execute(query, (currGameID,))
+        result = cursor.fetchall()
+        if (result == []):
+            print("Invalid gameID. Please try again.")
+        else:
+            result = result[0]
+            currGame = VideoGame(result[0], result[1], result[2], result[3], result[4], result[5], result[6])
+            return currGame
 # Main menu/ driver code (write a better comment than this for the final version)
 # each option below should launch the respective menu
 
@@ -194,22 +209,18 @@ while (killprogram == False):
                             titles = cursor.fetchall()
                             print(str(currGame) + ". " + str(titles[0][0]))
                 elif(userInput == "2"):
-                    while (True):
-                        userInput = input("\nEnter 'abort' to exit this menu.\nEnter a GameID (listed before a game title) to view it's details:")
-                        if (userInput == 'abort'):
-                            break
-                        query = ("SELECT * FROM inventory WHERE GameID = %s")
-                        cursor.execute(query, (userInput,))
-                        result = cursor.fetchall()
-                        if (result == []):
-                            print("Invalid gameID. Please try again.")
-                        else:
-                            result = result[0]
-                            currGame = VideoGame(result[0], result[1], result[2], result[3], result[4], result[5], result[6])
-                            currGame.viewInfo()
-                            break
+                    currGame = grabGame(cursor, mydb)
+                    if currGame == 'abort':
+                        break
+                    else:
+                        currGame.viewInfo()
                 elif(userInput == "3"):
-                    currUser.addCart(currUser, cursor, mydb)
+                    currGame = grabGame(cursor,mydb)
+                    quan = int(input("How many copies of this would you like to purchase?"))
+                    quan = abs(quan)
+                    UID = currUser.userID
+                    userCart = Cart(currGame.title,currGame.gameID,quan,currUser.userID)
+                    userCart.insertCart(cursor,mydb)
                     break
                 elif(userInput == "4"):
                     break
