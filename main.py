@@ -4,7 +4,7 @@ from mysql.connector import Error
 import sys
 from User import User
 from VideoGame import VideoGame
-# from Cart import Cart
+from Cart import Cart
 # from OrderHistory import OrderHistory
 
 
@@ -209,7 +209,8 @@ while (killprogram == False):
                             currGame.viewInfo()
                             break
                 elif(userInput == "3"):
-                    print("Add a game to cart by gameid")
+                    currUser.addCart(currUser, cursor, mydb)
+                    break
                 elif(userInput == "4"):
                     break
                 else:
@@ -225,12 +226,19 @@ while (killprogram == False):
                 print("3. Remove an Item From Cart")
                 print("4. Go Back")
                 cart_selection = input("Input a number to select a menu option: ")
+                # Calls the viewCart class function and returns back to the menu once done
                 if (cart_selection == "1"):
-                    print("view cart")
+                    currUser.viewCart()
+                    break
+                # Calls the checkout class function and returns the the menu once done
                 elif (cart_selection == "2"):
-                    print("check out")
+                    currUser.checkout(currUser, cursor, mydb)
+                    break
+                # Calls the removeCart class function and returns to the menu once done 
                 elif (cart_selection == "3"):
-                    print("Remove from cart")
+                    currUser.removeCart(currUser, cursor, mydb)
+                    break
+                # Return to Main Menu 
                 elif (cart_selection == "4"):
                     break
                 else:
