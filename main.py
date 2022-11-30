@@ -177,8 +177,7 @@ else:
 # main driver code, launches after login or registration
 while (killprogram == False):
     print("\nMain Menu:")
-    selection = ""
-    while selection not in ['1', '2', '3', '4', '5']:
+    while True:
         print("1. Shop Inventory")
         print("2. View and Edit Cart")
         print("3. View and Edit User Information")
@@ -188,7 +187,6 @@ while (killprogram == False):
 
     # Inventory submenu, allows a user to view inventory and add it to their cart
         if (selection == "1"):
-            userInput = ''
             while True:
                 print("\nInventory menu: ")
                 print("1. View Inventory")
@@ -229,41 +227,36 @@ while (killprogram == False):
 
     # Cart submenu, allows a user to view their cart, check out, and remove items from their cart
         elif (selection == "2"):
-            try:
-                cart_selection = ''
-                userCart = Cart(currUser.userID)
-                while cart_selection not in ['1', '2', '3', '4']:
-                    print("Cart Menu:")
-                    print("1. View Cart")
-                    print("2. Check out")
-                    print("3. Remove an Item From Cart")
-                    print("4. Go Back")
-                    cart_selection = input("Input a number to select a menu option: ")
-                    # Calls the viewCart class function and returns back to the menu once done
-                    if (cart_selection == "1"):
-                        userCart.viewCart(cursor)
-                        break
-                    # Calls the checkout class function and returns the the menu once done
-                    elif (cart_selection == "2"):
-                        userCart.checkout(cursor, mydb)
-                        break
-                    # Calls the removeCart class function and returns to the menu once done
-                    elif (cart_selection == "3"):
-                        userCart.removeCart(cursor, mydb)
-                        break
-                    # Return to Main Menu
-                    elif (cart_selection == "4"):
-                        break
-                    else:
-                        print("Invalid option, please try again.")
-            except NameError:
-                print("You don't have anything in your cart!")
+            userCart = Cart(currUser.userID)
+            while True:
+                print("Cart Menu:")
+                print("1. View Cart")
+                print("2. Check out")
+                print("3. Remove an Item From Cart")
+                print("4. Go Back")
+                cart_selection = input("Input a number to select a menu option: ")
+                # Calls the viewCart class function and returns back to the menu once done
+                if (cart_selection == "1"):
+                    userCart.viewCart(cursor)
+                # Calls the checkout class function and returns the the menu once done
+                elif (cart_selection == "2"):
+                    userCart.checkout(cursor, mydb)
+                    print("Thank you for shopping with us!")
+                    break
+                # Calls the removeCart class function and returns to the menu once done
+                elif (cart_selection == "3"):
+                    userCart.removeCart(cursor, mydb)
+                    print("Successfully removed!")
+                    break
+                # Return to Main Menu
+                elif (cart_selection == "4"):
+                    break
+                else:
+                    print("Invalid option, please try again.")
 
     # User information menu. Allows a user to view their account information, edit the information, or delete their account
         elif (selection == "3"):
-            # userinfo_selection variable so that the while loop works
-            userinfo_selection = ''
-            while userinfo_selection not in ['1', '2', '3', '4']:
+            while True:
                 print("User Information: ")
                 print("1. View User Information")
                 print("2. Edit User Information")
@@ -273,7 +266,6 @@ while (killprogram == False):
                 # Selection of 1 calls the viewInfo class function and then returns to the main menu
                 if (userinfo_selection == '1'):
                     currUser.viewInfo()
-                    break
                 # Selection of 2 calls the viewInfo class function, then the editUser function to let users edit information.
                 # It then returns to the home menu
                 elif (userinfo_selection == '2'):
@@ -301,15 +293,15 @@ while (killprogram == False):
                     print("Invalid option, please try again\n")
 
         elif (selection == "4"):
-            selection = ''
             userOrderHistory = OrderHistory(currUser.userID)
-            while selection not in ['1', '2']:
+            while True:
                 print("Order History Menu:")
                 print("1. View Order History")
                 print("2. Go Back")
                 userInput = input("Input a number to select a menu option:")
                 if (userInput == "1"):
-                    print("view order history")
+                    userOrderHistory.viewOrderHistory(cursor)
+                    break
                 elif (userInput == "2"):
                     break
                 else:

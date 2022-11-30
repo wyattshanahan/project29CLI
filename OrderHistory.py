@@ -11,8 +11,8 @@ class OrderHistory:
         data = self.UserID
         cursor.execute(query, (data,))
         myresult = cursor.fetchall()
-        i=0
+        i=1
         for x in myresult:
-            print(str(i) + ": Title: " + x[0] + " --- " + x[2])
+            print(str(i) + ". Title: " + x[0] + " --- " + x[2])
             print("\tQuantity: ", x[1])
             i+=1

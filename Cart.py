@@ -74,10 +74,10 @@ class Cart:
             cursor.execute(query, numID)
             stock = cursor.fetchone()
             # this line kept returning an error:
-            # stock = stock - 1
+            # stock = stock + 1
             # so i converted it to a list and then back to a tuple, lol
             lst = list(stock)
-            lst[0] -= 1
+            lst[0] += 1
             stock = tuple(lst)
             query = "UPDATE inventory SET Quantity = %s WHERE GameID = %s"
             cursor.execute(query, (stock[0], numID[0]))
@@ -103,9 +103,12 @@ class Cart:
             title = cursor.fetchall()
 
             length = len(stock)
-            query = "INSERT INTO OrderHistory (Title, Quantity, GameID) VALUES (%s, %s, %s)"
+            query = "INSERT INTO OrderHistory (Title, Quantity, GameID, UserID) VALUES (%s, %s, %s, %s)"
             for x in range(length):
-                print(title[x], stock[x], numID[x])
-                cursor.execute(query, (title[x][0], stock[x][0], numID[x][0]))
+                cursor.execute(query, (title[x][0], stock[x][0], numID[x][0], data))
+            mydb.commit()
+
+            query = "DELETE FROM cart WHERE UserID = %s"
+            cursor.execute(query, (data,))
             mydb.commit()
 
