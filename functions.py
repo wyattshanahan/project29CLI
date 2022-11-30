@@ -102,6 +102,7 @@ def login(cursor):
     if (loginGood == True):
         return currUser
 
+# shell function to facilitate password checks and deleting a user account
 def deleteUser(currUser, cursor, mydb):
     continuer = currUser.checkPassword(cursor)
     if (continuer == 'abort'):
