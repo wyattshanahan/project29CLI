@@ -62,26 +62,30 @@ class Cart:
         userInput = input("Enter the gameID of the game you would like to remove from your cart: ")
         query = "SELECT GameID FROM inventory WHERE GameID = %s"
         cursor.execute(query, (userInput,))
-        numID = cursor.fetchone()
-
+        numID = cursor.fetchall()
         if numID == []:
             print("Invalid gameID. Please try again.")
+            return False
         else:
+            removeGame = numID[0][0]
             query = "DELETE FROM cart WHERE GameID = %s"
-            cursor.execute(query, numID)
+            cursor.execute(query, (removeGame,))
 
             query = "SELECT Quantity FROM inventory WHERE GameID = %s"
-            cursor.execute(query, numID)
+            cursor.execute(query, (removeGame,))
             stock = cursor.fetchone()
             # this line kept returning an error:
             # stock = stock + 1
             # so i converted it to a list and then back to a tuple, lol
             lst = list(stock)
-            lst[0] += 1
+            tmp = lst[0]
+            tmp = int(tmp) +1
+            lst[0] = tmp
             stock = tuple(lst)
             query = "UPDATE inventory SET Quantity = %s WHERE GameID = %s"
-            cursor.execute(query, (stock[0], numID[0]))
+            cursor.execute(query, (stock[0], removeGame))
             mydb.commit()
+            return True
 
 # Clears cart database and adds everything to order history
     def checkout(self, cursor, mydb):
