@@ -40,7 +40,7 @@ class Cart:
         query = "INSERT INTO cart (Title, Quantity, GameID, UserID) VALUES (%s, %s, %s, %s)"
         cursor.execute(query, (cart,))
         mydb.commit()
-
+# adds games to cart using a VideoGame object
     def insertCart(self,cursor,mydb):
         cursor = cursor
         query = ("SELECT Quantity FROM inventory WHERE GameID = %s")
