@@ -189,7 +189,7 @@ while (killprogram == False):
     # Inventory submenu, allows a user to view inventory and add it to their cart
         if (selection == "1"):
             userInput = ''
-            while (True):
+            while True:
                 print("\nInventory menu: ")
                 print("1. View Inventory")
                 print("2. View a Specific Item")
@@ -240,7 +240,7 @@ while (killprogram == False):
                 # Calls the viewCart class function and returns back to the menu once done
                 if (cart_selection == "1"):
                     currUser.viewCart()
-                    break
+                    continue
                 # Calls the checkout class function and returns the the menu once done
                 elif (cart_selection == "2"):
                     currUser.checkout(currUser, cursor, mydb)

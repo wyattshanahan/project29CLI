@@ -55,7 +55,7 @@ class Cart:
     def removeCart(self, cursor, mydb):
         cursor = cursor
         userInput = input("Enter the gameID of the game you would like to remove from your cart: ")
-        query = ("SELECT GameID FROM inventory WHERE GameID = %s")
+        query = "SELECT GameID FROM inventory WHERE GameID = %s"
         cursor.execute(query, (userInput,))
         numID = cursor.fetchone()
 
