@@ -28,41 +28,6 @@ class User:
         cursor.execute(query, data)
         mydb.commit()
         print(cursor.rowcount, "record inserted.")
-        print()
-
-    # getters, which return a specific object attribute
-    def getID(self):
-        return self.userID
-    def getfname(self):
-        return self.fname
-    def getlname(self):
-        return self.lname
-    def getstreet(self):
-        return self.street
-    def getcity(self):
-        return self.city
-    def getstate(self):
-        return self.state
-    def getzip(self):
-        return self.zip
-    def getusername(self):
-        return self.username
-    def getpassword(self):
-        return self.password
-    def getemail(self):
-        return self.email
-    def gettelephone(self):
-        return self.telephone
-    def getcardnum(self):
-        return self.cardNum
-    def getcvv(self):
-        return self.cvv
-    def getcardname(self):
-        return self.cardName
-    def getcarddate(self):
-        return self.cardDate
-    def getordernum(self):
-        return self.orderNum
 
     # Setters, which take user input, update the attribute of the user class, and then write the update to the User SQL table
     def setfname(self, cursor, mydb):
