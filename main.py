@@ -219,7 +219,7 @@ while (killprogram == False):
                     quan = int(input("How many copies of this would you like to purchase?"))
                     quan = abs(quan)
                     UID = currUser.userID
-                    userCart = Cart(currGame.title,currGame.gameID,quan,currUser.userID)
+                    userCart = Cart(currUser.userID,currGame.title,currGame.gameID,quan)
                     userCart.insertCart(cursor,mydb)
                     break
                 elif(userInput == "4"):
@@ -231,6 +231,7 @@ while (killprogram == False):
         elif (selection == "2"):
             try:
                 cart_selection = ''
+                userCart = Cart(currUser.userID)
                 while cart_selection not in ['1', '2', '3', '4']:
                     print("Cart Menu:")
                     print("1. View Cart")

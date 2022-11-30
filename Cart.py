@@ -1,5 +1,5 @@
 class Cart:
-    def __init__(self, Title, GameID, Quantity, UserID):
+    def __init__(self, UserID, Title=None, GameID=None, Quantity=None):
         self.Title = Title
         self.GameID = GameID
         self.Quantity = Quantity
@@ -103,10 +103,9 @@ class Cart:
             title = cursor.fetchall()
 
             length = len(stock)
-
-            history = (title, stock, numID)
             query = "INSERT INTO OrderHistory (Title, Quantity, GameID) VALUES (%s, %s, %s)"
             for x in range(length):
-                cursor.execute(query, (title[x],stock[x],numID[x]))
+                print(title[x], stock[x], numID[x])
+                cursor.execute(query, (title[x][0], stock[x][0], numID[x][0]))
             mydb.commit()
 
