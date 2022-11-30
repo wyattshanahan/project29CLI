@@ -195,11 +195,6 @@ while (killprogram == False):
 
 
 #TO-DO:
-# main menu
-# sub menus
-# decrement stock upon purchase
-# write out the purchase program
-# password length
 
 # view cart option
 # checkout function

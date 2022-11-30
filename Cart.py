@@ -12,6 +12,7 @@ class Cart:
         data = self.UserID
         cursor.execute(query, (data,))
         myresult = cursor.fetchall()
+        print ("Your Cart: \n")
         for x in myresult:
             print("Title: " + x[0] + " --- " + x[2])
             print("\tQuantity: ", x[1])
@@ -98,6 +99,14 @@ class Cart:
         if numID == []:
             print("There is nothing in your cart.")
         else:
+            while(True):
+                confirm = int(input("Are you sure you wish to checkout? \n1. Yes \n2. No\n Enter an integer to select an option: "))
+                if (confirm == 2):
+                    return False
+                elif (confirm == 1):
+                    break
+                else:
+                    print("Invalid input, please try again.")
             query = "SELECT Quantity FROM cart"
             cursor.execute(query)
             stock = cursor.fetchall()
