@@ -43,15 +43,18 @@ class Cart:
         cursor.execute(query, userInput)
         numID = cursor.fetchone()
 
-        query = "DELETE FROM cart WHERE GameID = %s"
-        cursor.execute(query, numID)
+        if numID == []:
+            print("Invalid gameID. Please try again.")
+        else:
+            query = "DELETE FROM cart WHERE GameID = %s"
+            cursor.execute(query, numID)
 
-        query = "SELECT Quantity FROM inventory WHERE GameID = %s"
-        cursor.execute(query, numID)
-        stock = cursor.fetchone()
-        stock = stock + 1
-        query = "UPDATE inventory SET Quantity = s% WHERE GameID = %s"
-        cursor.execute(query, stock, numID)
+            query = "SELECT Quantity FROM inventory WHERE GameID = %s"
+            cursor.execute(query, numID)
+            stock = cursor.fetchone()
+            stock = stock + 1
+            query = "UPDATE inventory SET Quantity = s% WHERE GameID = %s"
+            cursor.execute(query, stock, numID)
 
         mydb.commit()
 
@@ -62,17 +65,20 @@ class Cart:
         cursor.exectue(query)
         numID = cursor.fetchall()
 
-        query = "SELECT Quantity FROM cart"
-        cursor.exectue(query)
-        stock = cursor.fetchall()
+        if numID == []:
+            print("There is nothing in your cart.")
+        else:
+            query = "SELECT Quantity FROM cart"
+            cursor.exectue(query)
+            stock = cursor.fetchall()
 
-        query = "SELECT Title FROM cart"
-        cursor.exectue(query)
-        title = cursor.fetchall()
+            query = "SELECT Title FROM cart"
+            cursor.exectue(query)
+            title = cursor.fetchall()
 
-        history = (title, stock, numID)
-        query = "INSERT INTO OrderHistory (Title, Quantity, GameID) VALUES (%s, %s, %s)"
-        cursor.execute(query, history)
+            history = (title, stock, numID)
+            query = "INSERT INTO OrderHistory (Title, Quantity, GameID) VALUES (%s, %s, %s)"
+            cursor.execute(query, history)
 
         mydb.commit()
 
