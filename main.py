@@ -137,11 +137,14 @@ while (killprogram == False):
                 currUser.viewInfo()
                 currUser.editUser(cursor,mydb)
                 break
-            # Selection of 3 calls the deleteUser class function. If the user is deleted, then the session is ended
+            # Selection of 3 calls the removeCart and deleteUser class function. If the user is deleted, then the session is ended
             # If the user is not deleted (out == False), then the user is returned to the main menu
             elif (userinfo_selection == '3'):
+                cartID = currUser.userID
                 out = deleteUser(currUser,cursor,mydb)
                 if (out == True):
+                    userCart = Cart(currUser.userID)
+                    output = userCart.removeCart(cursor, mydb)
                     killprogram = True
                     break
                 elif (out == False):
