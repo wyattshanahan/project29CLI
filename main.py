@@ -58,6 +58,7 @@ while (killprogram == False):
             print("3. Add Item to Cart")
             print("4. Go Back")
             userInput = input("Input a number to select a menu option: ")
+            # selection of 1 pulls information from the database and displays the current inventory
             if(userInput == "1"):
                 print("\nInventory: ")
                 cursor.execute("SELECT GameID FROM inventory")
@@ -70,12 +71,14 @@ while (killprogram == False):
                         cursor.execute(query, (currGame,))
                         titles = cursor.fetchall()
                         print(str(currGame) + ". " + str(titles[0][0]))
+            # selection of 2 displays specific attributes of the selected game using a VideoGame object
             elif(userInput == "2"):
                 currGame = grabGame(cursor, mydb)
                 if currGame == 'abort':
                     break
                 else:
                     currGame.viewInfo()
+            # selection of 3 allows the user to add the item to their cart
             elif(userInput == "3"):
                 currGame = grabGame(cursor,mydb)
                 quan = int(input("How many copies of this would you like to purchase?"))
@@ -159,7 +162,7 @@ while (killprogram == False):
             # If no valid input is received, an error message is displayed and the menu loops
             else:
                 print("Invalid option, please try again\n")
-
+    # selection of 4 opens the OrderHistory menu
     elif (selection == "4"):
         userOrderHistory = OrderHistory(currUser.userID)
         while True:
@@ -167,6 +170,7 @@ while (killprogram == False):
             print("1. View Order History")
             print("2. Go Back")
             userInput = input("Input a number to select a menu option:")
+            # selection of 1 displays orderhistory, selection of 2 returns to the previous menu
             if (userInput == "1"):
                 userOrderHistory.viewOrderHistory(cursor)
                 break
@@ -174,19 +178,15 @@ while (killprogram == False):
                 break
             else:
                 print("Invalid option, please try again")
-    # fix formatting of exit
     # Else if 5 is entered, then launch the exit menu
     elif (selection == "5"):
-        while selection not in ['1', '2']:
-            print("\nDo you wish to log out?")
-            print("1. Log Out")
-            print("2. Go Back")
-            selection = input("Input a number to select a menu option: ")
-            if selection == "1":
+        while True:
+            userInput = input("Do you wish to exit? (y/n): ")
+            if ((userInput == "y") or (userInput == "Y")):
                 print("\nYou will now be logged out")
                 killprogram = True
                 break
-            elif (selection == "2"):
+            elif ((userInput == "n") or (userInput == "N")):
                 break
             else:
                 print("Invalid input, please try again.\n")
@@ -195,23 +195,10 @@ while (killprogram == False):
 
 
 #TO-DO:
-
-# view cart option
-# checkout function
-# remove item from cart
-# go back option for cart
-
-# view order history
-# go back from order history
-
 # inventory menu
 # clean this menu up
 
 # add comments/documentation
-    #comments/doc for main
-    #comments/doc for cart class
     #comments/doc for inventory class
     #comments/doc for history class
 # clean up code
-#   should this be pythonic? check rubric
-#
