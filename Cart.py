@@ -6,10 +6,15 @@ class Cart:
         self.UserID = UserID
 
 # View items in your cart
-    def viewCart(self):
-        print("Cart:\n")
-        print("Title: " + self.Title + " --- " + self.GameID)
-        print("Quantity : " + self.Quantity)
+    def viewCart(self, cursor):
+        cursor = cursor
+        cursor.execute("SELECT * FROM cart")
+
+        myresult = cursor.fetchall()
+
+        for x in myresult:
+            print("Title: " + x[0] + " --- " + x[2])
+            print("\tQuantity: ", x[1])
 
 # Adds game to your cart SQL table
     def addCart(self, cursor, mydb):
@@ -40,7 +45,7 @@ class Cart:
         query = ("SELECT Quantity FROM inventory WHERE GameID = %s")
         cursor.execute(query,(self.GameID,))
         stock = cursor.fetchone()
-        stock = stock[0][0]
+        stock = stock[0]
         stock = int(stock)
         stock -= self.Quantity
         query = ("UPDATE inventory SET Quantity = %s WHERE GameID = %s")
@@ -63,14 +68,19 @@ class Cart:
             print("Invalid gameID. Please try again.")
         else:
             query = "DELETE FROM cart WHERE GameID = %s"
-            cursor.execute(query, (numID,))
+            cursor.execute(query, numID)
 
             query = "SELECT Quantity FROM inventory WHERE GameID = %s"
-            cursor.execute(query, (numID,))
+            cursor.execute(query, numID)
             stock = cursor.fetchone()
-            stock = stock + 1
+            # this line kept returning an error:
+            # stock = stock - 1
+            # so i converted it to a list and then back to a tuple, lol
+            lst = list(stock)
+            lst[0] -= 1
+            stock = tuple(lst)
             query = "UPDATE inventory SET Quantity = %s WHERE GameID = %s"
-            cursor.execute(query, (stock, numID,))
+            cursor.execute(query, (stock[0], numID[0]))
             mydb.commit()
 
 # Clears cart database and adds everything to order history
@@ -78,22 +88,25 @@ class Cart:
         cursor = cursor
         query = "SELECT GameID FROM cart WHERE UserID = %s"
         data = self.UserID
-        cursor.exectue(query, (data,))
+        cursor.execute(query, (data,))
         numID = cursor.fetchall()
 
         if numID == []:
             print("There is nothing in your cart.")
         else:
             query = "SELECT Quantity FROM cart"
-            cursor.exectue(query)
+            cursor.execute(query)
             stock = cursor.fetchall()
 
             query = "SELECT Title FROM cart"
-            cursor.exectue(query)
+            cursor.execute(query)
             title = cursor.fetchall()
+
+            length = len(stock)
 
             history = (title, stock, numID)
             query = "INSERT INTO OrderHistory (Title, Quantity, GameID) VALUES (%s, %s, %s)"
-            cursor.execute(query, (history,))
+            for x in range(length):
+                cursor.execute(query, (title[x],stock[x],numID[x]))
             mydb.commit()
 

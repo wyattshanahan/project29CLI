@@ -1,5 +1,5 @@
 class VideoGame:
-    def __init__(self, title, developer, release_year, console, gameID, in_stock, price):
+    def __init__(self, title, developer, release_year, console, gameID, price, in_stock):
         self.title = title
         self.developer = developer
         self.release_year = release_year

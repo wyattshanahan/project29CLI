@@ -229,31 +229,34 @@ while (killprogram == False):
 
     # Cart submenu, allows a user to view their cart, check out, and remove items from their cart
         elif (selection == "2"):
-            cart_selection = ''
-            while cart_selection not in ['1', '2', '3', '4']:
-                print("Cart Menu:")
-                print("1. View Cart")
-                print("2. Check out")
-                print("3. Remove an Item From Cart")
-                print("4. Go Back")
-                cart_selection = input("Input a number to select a menu option: ")
-                # Calls the viewCart class function and returns back to the menu once done
-                if (cart_selection == "1"):
-                    currUser.viewCart()
-                    continue
-                # Calls the checkout class function and returns the the menu once done
-                elif (cart_selection == "2"):
-                    currUser.checkout(currUser, cursor, mydb)
-                    break
-                # Calls the removeCart class function and returns to the menu once done 
-                elif (cart_selection == "3"):
-                    currUser.removeCart(currUser, cursor, mydb)
-                    break
-                # Return to Main Menu 
-                elif (cart_selection == "4"):
-                    break
-                else:
-                    print("Invalid option, please try again.")
+            try:
+                cart_selection = ''
+                while cart_selection not in ['1', '2', '3', '4']:
+                    print("Cart Menu:")
+                    print("1. View Cart")
+                    print("2. Check out")
+                    print("3. Remove an Item From Cart")
+                    print("4. Go Back")
+                    cart_selection = input("Input a number to select a menu option: ")
+                    # Calls the viewCart class function and returns back to the menu once done
+                    if (cart_selection == "1"):
+                        userCart.viewCart(cursor)
+                        break
+                    # Calls the checkout class function and returns the the menu once done
+                    elif (cart_selection == "2"):
+                        userCart.checkout(cursor, mydb)
+                        break
+                    # Calls the removeCart class function and returns to the menu once done
+                    elif (cart_selection == "3"):
+                        userCart.removeCart(cursor, mydb)
+                        break
+                    # Return to Main Menu
+                    elif (cart_selection == "4"):
+                        break
+                    else:
+                        print("Invalid option, please try again.")
+            except NameError:
+                print("You don't have anything in your cart!")
 
     # User information menu. Allows a user to view their account information, edit the information, or delete their account
         elif (selection == "3"):
