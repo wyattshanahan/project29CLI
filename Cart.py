@@ -55,8 +55,7 @@ class Cart:
             stock = stock + 1
             query = "UPDATE inventory SET Quantity = s% WHERE GameID = %s"
             cursor.execute(query, stock, numID)
-
-        mydb.commit()
+            mydb.commit()
 
 # Clears cart database and adds everything to order history
     def checkout(self, cursor, mydb):
@@ -79,6 +78,5 @@ class Cart:
             history = (title, stock, numID)
             query = "INSERT INTO OrderHistory (Title, Quantity, GameID) VALUES (%s, %s, %s)"
             cursor.execute(query, history)
-
-        mydb.commit()
+            mydb.commit()
 
