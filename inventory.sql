@@ -33,7 +33,7 @@ CREATE TABLE `inventory` (
   `Release Year` text NOT NULL,
   `Console` text NOT NULL,
   `GameID` text NOT NULL,
-  'Price' text NOT NULL,
+  `Price` text NOT NULL,
   `Quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
