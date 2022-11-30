@@ -5,7 +5,7 @@ import sys
 from User import User
 from VideoGame import VideoGame
 from Cart import Cart
-# from OrderHistory import OrderHistory
+from OrderHistory import OrderHistory
 
 
 # Attempts a connection to the database server, displays a message if a connection is successful
@@ -301,16 +301,19 @@ while (killprogram == False):
                     print("Invalid option, please try again\n")
 
         elif (selection == "4"):
-            print("Order History:")
-            print("1. View Order History")
-            print("2. Go Back")
-            userInput = input("Input a number to select a menu option:")
-            if (userInput == "1"):
-                print("view order history")
-            elif (userInput == "2"):
-                break
-            else:
-                print("Invalid option, please try again")
+            selection = ''
+            userOrderHistory = OrderHistory(currUser.userID)
+            while selection not in ['1', '2']:
+                print("Order History Menu:")
+                print("1. View Order History")
+                print("2. Go Back")
+                userInput = input("Input a number to select a menu option:")
+                if (userInput == "1"):
+                    print("view order history")
+                elif (userInput == "2"):
+                    break
+                else:
+                    print("Invalid option, please try again")
         # fix formatting of exit
         # Else if 5 is entered, then launch the exit menu
         elif (selection == "5"):
