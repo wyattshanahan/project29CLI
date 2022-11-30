@@ -28,7 +28,6 @@ class User:
         cursor.execute(query, data)
         mydb.commit()
         print(cursor.rowcount, "record inserted.")
-        print()
 
     # Setters, which take user input, update the attribute of the user class, and then write the update to the User SQL table
     def setfname(self, cursor, mydb):
