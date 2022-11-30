@@ -15,23 +15,23 @@ class Cart:
         cursor = cursor
         userInput = input("Enter the gameID of the game you would like to buy: ")
         query = "SELECT GameID FROM inventory WHERE GameID = %s"
-        cursor.execute(query, userInput)
+        cursor.execute(query, (userInput,))
         numID = cursor.fetchone()
 
         query = "SELECT Title FROM inventory WHERE GameID = %s"
-        cursor.execute(query, numID)
+        cursor.execute(query, (numID,))
         title = cursor.fetchone()
 
         query = "SELECT Quantity FROM inventory WHERE GameID = %s"
-        cursor.execute(query, numID)
+        cursor.execute(query, (numID,))
         stock = cursor.fetchone()
         stock = stock - 1
-        query = "UPDATE inventory SET Quantity = s% WHERE GameID = %s"
-        cursor.execute(query, stock, numID)
+        query = "UPDATE inventory SET Quantity = %s WHERE GameID = %s"
+        cursor.execute(query, (stock, numID,))
 
         cart = (title, 1, numID)
         query = "INSERT INTO cart (Title, Quantity, GameID) VALUES (%s, %s, %s)"
-        cursor.execute(query, cart)
+        cursor.execute(query, (cart,))
 
         mydb.commit()
 
@@ -40,21 +40,21 @@ class Cart:
         cursor = cursor
         userInput = input("Enter the gameID of the game you would like to remove from your cart: ")
         query = "SELECT GameID FROM inventory WHERE GameID = %s"
-        cursor.execute(query, userInput)
+        cursor.execute(query, (userInput,))
         numID = cursor.fetchone()
 
         if numID == []:
             print("Invalid gameID. Please try again.")
         else:
             query = "DELETE FROM cart WHERE GameID = %s"
-            cursor.execute(query, numID)
+            cursor.execute(query, (numID,))
 
             query = "SELECT Quantity FROM inventory WHERE GameID = %s"
-            cursor.execute(query, numID)
+            cursor.execute(query, (numID,))
             stock = cursor.fetchone()
             stock = stock + 1
-            query = "UPDATE inventory SET Quantity = s% WHERE GameID = %s"
-            cursor.execute(query, stock, numID)
+            query = "UPDATE inventory SET Quantity = %s WHERE GameID = %s"
+            cursor.execute(query, (stock, numID,))
             mydb.commit()
 
 # Clears cart database and adds everything to order history
@@ -77,6 +77,6 @@ class Cart:
 
             history = (title, stock, numID)
             query = "INSERT INTO OrderHistory (Title, Quantity, GameID) VALUES (%s, %s, %s)"
-            cursor.execute(query, history)
+            cursor.execute(query, (history,))
             mydb.commit()
 
