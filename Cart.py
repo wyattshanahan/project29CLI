@@ -36,7 +36,7 @@ class Cart:
         mydb.commit()
 
 # Removes game from the cart SQL table
-    def remaveCart(self, cursor, mydb):
+    def removeCart(self, cursor, mydb):
         cursor = cursor
         userInput = input("Enter the gameID of the game you would like to remove from your cart: ")
         query = "SELECT GameID FROM inventory WHERE GameID = %s"
