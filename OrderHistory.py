@@ -23,6 +23,3 @@ class OrderHistory:
         data = (self.Title, self.Quantity, self.GameID, self.UserID)
         cursor.execute(query, data)
         mydb.commit()
-
-    def deleteOrder(self, cursor, mydb):
-        cursor = cursor
