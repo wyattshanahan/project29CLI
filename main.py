@@ -142,7 +142,10 @@ while (killprogram == False):
             # Selection of 3 calls the removeCart and deleteUser class function. If the user is deleted, then the session is ended
             # If the user is not deleted (out == False), then the user is returned to the main menu
             elif (userinfo_selection == '3'):
-                cartID = currUser.userID
+                query = "DELETE FROM cart WHERE UserID = %s"
+                cursor.execute(query, (currUser.userID,))
+                query = "DELETE FROM orderhistory WHERE USERID = %s"
+                cursor.execute(query, (currUser.userID,))
                 out = deleteUser(currUser,cursor,mydb)
                 if (out == True):
                     userCart = Cart(currUser.userID)
