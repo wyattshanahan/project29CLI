@@ -80,7 +80,7 @@ while (killprogram == False):
             # selection of 3 allows the user to add the item to their cart
             elif(userInput == "3"):
                 currGame = grabGame(cursor,mydb)
-                quan = int(input("How many copies of this would you like to purchase?"))
+                quan = int(input("How many copies of this would you like to purchase? "))
                 quan = abs(quan)
                 UID = currUser.userID
                 userCart = Cart(currUser.userID,currGame.title,currGame.gameID,quan)
