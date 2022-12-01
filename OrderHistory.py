@@ -16,3 +16,13 @@ class OrderHistory:
             print(str(i) + ". Title: " + x[0] + " --- " + x[2])
             print("\tQuantity: ", x[1])
             i+=1
+
+    def addOrder(self, cursor, mydb):
+        cursor = cursor
+        query = ("INSERT INTO orderhistory (Title, Quantity, GameID, UserID) VALUES (%s, %s, %s, %s)")
+        data = (self.Title, self.Quantity, self.GameID, self.UserID)
+        cursor.execute(query, data)
+        mydb.commit()
+
+    def deleteOrder(self, cursor, mydb):
+        cursor = cursor
