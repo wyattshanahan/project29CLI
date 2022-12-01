@@ -111,7 +111,6 @@ class Cart:
                     break
                 else:
                     print("Invalid input, please try again.")
-
             query = "DELETE FROM cart WHERE UserID = %s"
             cursor.execute(query, (data,))
             mydb.commit()

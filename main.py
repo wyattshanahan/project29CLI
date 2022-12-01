@@ -168,7 +168,7 @@ while (killprogram == False):
             print("\nOrder History Menu:")
             print("1. View Order History")
             print("2. Go Back")
-            userInput = input("Input a number to select a menu option:")
+            userInput = input("Input a number to select a menu option: ")
             # selection of 1 displays orderhistory, selection of 2 returns to the previous menu
             if (userInput == "1"):
                 userOrderHistory.viewOrderHistory(cursor)
