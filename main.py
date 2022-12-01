@@ -48,8 +48,7 @@ while (killprogram == False):
     print("4. View Order History")
     print("5. Log Out")
     selection = input("Input a number to select a menu option: ")
-
-# Inventory submenu, allows a user to view inventory and add it to their cart
+    # Inventory submenu, allows a user to view inventory and add it to their cart
     if (selection == "1"):
         while True:
             print("\nInventory menu: ")
@@ -91,8 +90,7 @@ while (killprogram == False):
                 break
             else:
                 print("Invalid option, please try again\n")
-
-# Cart submenu, allows a user to view their cart, check out, and remove items from their cart
+    # Cart submenu, allows a user to view their cart, check out, and remove items from their cart
     elif (selection == "2"):
         userCart = Cart(currUser.userID)
         while True:
@@ -121,8 +119,7 @@ while (killprogram == False):
                 break
             else:
                 print("Invalid option, please try again.")
-
-# User information menu. Allows a user to view their account information, edit the information, or delete their account
+    # User information menu. Allows a user to view their account information, edit the information, or delete their account
     elif (selection == "3"):
         while True:
             print("\nUser Information: ")
@@ -192,11 +189,3 @@ while (killprogram == False):
                 print("Invalid input, please try again.\n")
     else:
         print("Invalid input, please try again.\n")
-
-
-#TO-DO:
-# clean this menu up
-
-# add comments/documentation
-    #comments/doc for history class
-# clean up code
