@@ -1,5 +1,5 @@
 class Cart:
-    def __init__(self, UserID, Title=None, GameID=None, Quantity=None):
+    def __init__(self, UserID, Title=None, GameID=None, Quantity=0):
         self.Title = Title
         self.GameID = GameID
         self.Quantity = Quantity
@@ -46,11 +46,13 @@ class Cart:
         query = ("SELECT Quantity FROM inventory WHERE GameID = %s")
         cursor.execute(query,(self.GameID,))
         stock = cursor.fetchone()
-        stock = stock[0]
-        stock = int(stock)
-        stock -= self.Quantity
+        lst = list(stock)
+        tmp = lst[0]
+        tmp = int(tmp) - self.Quantity
+        lst[0] = tmp
+        stock = tuple(lst)
         query = ("UPDATE inventory SET Quantity = %s WHERE GameID = %s")
-        cursor.execute(query, (self.Quantity, self.GameID,))
+        cursor.execute(query, (stock[0], self.GameID,))
         mydb.commit()
         newquery = ("INSERT INTO cart (Title, Quantity, GameID, UserID) VALUES (%s, %s, %s, %s)")
         data = (self.Title, self.Quantity, self.GameID, self.UserID)
@@ -69,18 +71,20 @@ class Cart:
             return False
         else:
             removeGame = numID[0][0]
+            query = "SELECT Quantity FROM cart WHERE GameID = %s"
+            cursor.execute(query, (removeGame,))
+            cartQuan = cursor.fetchall()
             query = "DELETE FROM cart WHERE GameID = %s"
             cursor.execute(query, (removeGame,))
-
             query = "SELECT Quantity FROM inventory WHERE GameID = %s"
             cursor.execute(query, (removeGame,))
             stock = cursor.fetchone()
-            # this line kept returning an error:
-            # stock = stock + 1
-            # so i converted it to a list and then back to a tuple, lol
             lst = list(stock)
             tmp = lst[0]
-            tmp = int(tmp) +1
+            cartQuan = list(cartQuan)
+            quan = cartQuan[0][0]
+            quan = int(quan)
+            tmp = int(tmp) + quan
             lst[0] = tmp
             stock = tuple(lst)
             query = "UPDATE inventory SET Quantity = %s WHERE GameID = %s"
