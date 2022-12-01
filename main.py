@@ -195,10 +195,8 @@ while (killprogram == False):
 
 
 #TO-DO:
-# inventory menu
 # clean this menu up
 
 # add comments/documentation
-    #comments/doc for inventory class
     #comments/doc for history class
 # clean up code
