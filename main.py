@@ -96,7 +96,7 @@ while (killprogram == False):
     elif (selection == "2"):
         userCart = Cart(currUser.userID)
         while True:
-            print("Cart Menu:")
+            print("\nCart Menu:")
             print("1. View Cart")
             print("2. Check out")
             print("3. Remove an Item From Cart")
@@ -125,7 +125,7 @@ while (killprogram == False):
 # User information menu. Allows a user to view their account information, edit the information, or delete their account
     elif (selection == "3"):
         while True:
-            print("User Information: ")
+            print("\nUser Information: ")
             print("1. View User Information")
             print("2. Edit User Information")
             print("3. Delete User Account")
@@ -166,7 +166,7 @@ while (killprogram == False):
     elif (selection == "4"):
         userOrderHistory = OrderHistory(currUser.userID)
         while True:
-            print("Order History Menu:")
+            print("\nOrder History Menu:")
             print("1. View Order History")
             print("2. Go Back")
             userInput = input("Input a number to select a menu option:")

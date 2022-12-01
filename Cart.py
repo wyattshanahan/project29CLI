@@ -100,7 +100,7 @@ class Cart:
             print("There is nothing in your cart.")
         else:
             while(True):
-                confirm = int(input("Are you sure you wish to checkout? \n1. Yes \n2. No\n Enter an integer to select an option: "))
+                confirm = int(input("Are you sure you wish to checkout? \n1. Yes \n2. No\n Enter a number to select an option: "))
                 if (confirm == 2):
                     return False
                 elif (confirm == 1):
