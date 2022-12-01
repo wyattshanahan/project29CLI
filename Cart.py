@@ -111,19 +111,6 @@ class Cart:
                     break
                 else:
                     print("Invalid input, please try again.")
-            query = "SELECT Quantity FROM cart"
-            cursor.execute(query)
-            stock = cursor.fetchall()
-
-            query = "SELECT Title FROM cart"
-            cursor.execute(query)
-            title = cursor.fetchall()
-
-            length = len(stock)
-            query = "INSERT INTO OrderHistory (Title, Quantity, GameID, UserID) VALUES (%s, %s, %s, %s)"
-            for x in range(length):
-                cursor.execute(query, (title[x][0], stock[x][0], numID[x][0], data))
-            mydb.commit()
 
             query = "DELETE FROM cart WHERE UserID = %s"
             cursor.execute(query, (data,))
