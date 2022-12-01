@@ -86,7 +86,7 @@ while (killprogram == False):
                 userCart = Cart(currUser.userID,currGame.title,currGame.gameID,quan)
                 userOrderHistory = OrderHistory(currUser.userID, currGame.title, currGame.gameID, quan)
                 userCart.insertCart(cursor,mydb)
-                OrderHistory.addOrder(cursor, mydb)
+                userOrderHistory.addOrder(cursor,mydb)
                 break
             elif(userInput == "4"):
                 break
