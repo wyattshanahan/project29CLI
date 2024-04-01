@@ -1,4 +1,4 @@
-# project29CLI
+# project29CLI [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 This repository contains the code and all necessary files for running a Command Line Interface store.
 This store was built as part of a group final project which required building a Command Line Interface store.
 
